@@ -1,4 +1,4 @@
-programmation-orientee-objet-csharp
-===================================
+# Programmation orientée objet en C#
 
-Livre "Programmation orientée objet en C#"
+Découvrez les principaux concepts de la POO à l'aide du langage C#.
+
