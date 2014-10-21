@@ -27,6 +27,4 @@ Les années 1990 ont vu l'avènement des langages orientés objet dans de nombre
 
 De nos jours, de très nombreux langages permettent d'utiliser les principes de la POO dans des domaines variés : Java et C# bien sûr, mais aussi **PHP** (à partir de la version 5), **VB.NET**, **PowerShell**, **Python**, etc. Une connaissance minimale des principes de la POO est donc indispensable à tout informaticien, qu'il soit développeur ou non.
 
-{{% remark %}}
-La POO s'accompagne d'un changement dans la manière de penser les problèmes et de concevoir l'architecture des applications informatiques. C'est ce qu l'on appelle l'analyse (ou la modélisation) orientée objet. Son principal support est le langage de modélisation **UML**.
-{{% /remark %}}
+**REMARQUE** : la POO s'accompagne d'un changement dans la manière de penser les problèmes et de concevoir l'architecture des applications informatiques. C'est ce qu l'on appelle l'analyse (ou la modélisation) orientée objet. Son principal support est le langage de modélisation **UML**.

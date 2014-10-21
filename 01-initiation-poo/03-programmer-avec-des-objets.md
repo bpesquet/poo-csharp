@@ -41,23 +41,23 @@ En utilisant le modèle fourni par la classe, il est possible de créer autant d
 
 Le programme C# ci-dessous utilise la classe `CompteBancaire` définie plus haut pour créer le compte de Jean et y effectuer deux opérations.
 
-    static void Main(string[] args)
-    {
-        CompteBancaire comptePierre;          // déclaration d'un nouvel objet
-        comptePierre = new CompteBancaire();  // instanciation de cet objet
-
-        // affectations de valeurs aux attributs
-        comptePierre.titulaire = "Pierre";
-        comptePierre.solde = 0;
-        comptePierre.devise = "euros";
-
-        // appels de méthodes
-        comptePierre.Crediter(300);
-        comptePierre.Debiter(500);
-        string description = "Le solde du compte de " + comptePierre.titulaire +
-            " est de " + comptePierre.solde + " " + comptePierre.devise;
-        Console.WriteLine(description);
-    }
+```csharp
+static void Main(string[] args)
+{
+    CompteBancaire comptePierre;          // déclaration d'un nouvel objet
+    comptePierre = new CompteBancaire();  // instanciation de cet objet
+    // affectations de valeurs aux attributs
+    comptePierre.titulaire = "Pierre";
+    comptePierre.solde = 0;
+    comptePierre.devise = "euros";
+    // appels de méthodes
+    comptePierre.Crediter(300);
+    comptePierre.Debiter(500);
+    string description = "Le solde du compte de " + comptePierre.titulaire +
+        " est de " + comptePierre.solde + " " + comptePierre.devise;
+    Console.WriteLine(description);
+}
+```
 
 A la fin du programme, l'attribut *solde* de l'objet `comptePierre` contient la valeur -200.
 
