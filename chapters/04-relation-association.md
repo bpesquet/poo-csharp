@@ -351,7 +351,4 @@ class Livre
     // ...
 ```
 
-**DEFINITION** : une multiplicité *\** ou *1..\** se traduit par l'ajout d'une liste de références comme attribut.
-
-
-
+**DEFINITION** : une multiplicité \* ou 1..* se traduit par l'ajout d'une liste de références comme attribut.
