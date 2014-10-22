@@ -125,7 +125,7 @@ Une instanciation d'objet comme `monCercle = new Cercle(7.5)` provoque la réser
 
 Les observations précédentes ont maintenant une explication : l'affectation `cercle2 = cercle1` provoque la copie de la **référence** de `cercle1` dans `cercle2`. Après cette assignation, les deux variables "pointent" vers la même zone mémoire contenant les données du premier cercle.
 
-![Stockage d'objets en mémoire](../images/memoire_cercle_1.jpg)
+![Stockage d'objets en mémoire](../images/memoire_cercle_2.jpg)
 
 **DEFINITION** : une affectation d'un objet à un autre ne déclenche pas la copie du *contenu* des objets. La **référence** (adresse mémoire) du premier objet est affectée au second, et les deux objets "pointent" vers la même zone mémoire.
 

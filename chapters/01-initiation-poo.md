@@ -204,7 +204,6 @@ CompteBancaire comptePierre = new CompteBancaire();  // déclaration et instanci
 
 * instancier, c'est créer un nouvel objet (opérateur ``new``)
 * initialiser, c'est donner une valeur initiale à quelque chose (opérateur ``=``)
-{{% /warning %}}
 
 ### Ajout d'une méthode
 
@@ -250,4 +249,5 @@ static void Main(string[] args)
     Console.WriteLine(comptePaul.Decrire());
 }
 ```
+
 ![Résultat de l'exécution](../images/compte_pierre_paul.jpg)
