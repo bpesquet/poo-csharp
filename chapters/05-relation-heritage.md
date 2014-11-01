@@ -156,7 +156,7 @@ public abstract class CompteBancaire
 
 Remarquez l'absence d'accolades ouvrantes et fermantes après le nom `Debiter`, remplacées par un simple `;`. La méthode est *déclarée* mais pas *définie*. Ce sera aux classes qui héritent de `CompteBancaire` de fournir une implémentation respectant la signature de la méthode.
 
-**DEFINITION** 
+**DEFINITION**
 
 * Le terme **implémenter** signifie : rendre concret, traduire en code.
 * La **signature** d'une méthode est constituée de son nom et de la liste de ses paramètres.
