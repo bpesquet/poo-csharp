@@ -1,7 +1,4 @@
-[![Build Status](https://www.gitbook.io/button/status/book/bpesquet/programmation-orientee-objet-csharp)](https://www.gitbook.io/book/bpesquet/programmation-orientee-objet-csharp/activity)
-
-Programmation orientée objet en C#
-=====
+# Programmation orientée objet en C#
 
 ## Résumé
 
