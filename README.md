@@ -5,7 +5,7 @@ Programmation orientée objet en C#
 
 ## Résumé
 
-Ce livre est une introduction à la **programmation orientée objet** (POO). Il présente de manière illustrée et progressive les savoir-faire associés :
+Ce livre est une introduction à la **programmation orientée objet** (POO). Il présente de manière illustrée et progressive les concepts essentiels et les savoir-faire associés :
 
 * Ecriture et utilisation de classes.
 * Ajout de constructeurs, et d'accesseurs, encapsulation.
@@ -18,15 +18,15 @@ Les exemples de code sont écrits en C#, mais sont facilement transposables à d
 
 ## Pré-requis
 
-La lecture de ce livre nécessite une connaissance des bases de la pogrammation :
+La lecture de ce livre nécessite une connaissance des bases de la programmation :
 
 * Notion de variable et de type.
 * Structures conditionnelles et itératives (boucles).
-* Programmation modulaire et passage de paramètres.
+* Programmation modulaire (sous-programmes) et passage de paramètres.
 * Tableaux et listes.
 
 ## Contributions
 
-Le code source de ce livre est disponible sur [GitHub](https://github.com/bpesquet/programmation-orientee-objet-csharp). N'hésitez pas à contribuer à son amélioration en utilisant les *issues* pour signaler des erreurs et les *pull requests* pour proposer des améliorations.
+Ce livre est publié sous la licence Creative Commons [BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0/). Son code source est disponible sur [GitHub](https://github.com/bpesquet/programmation-orientee-objet-csharp). N'hésitez pas à contribuer à son amélioration en utilisant les *issues* pour signaler des erreurs et les *pull requests* pour proposer des améliorations.
 
 Merci d'avance et bonne lecture !
