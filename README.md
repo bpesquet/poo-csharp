@@ -1,4 +1,5 @@
-# Programmation orientée objet en C#
+Programmation orientée objet en C#
+=====
 
 ## Résumé
 
