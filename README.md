@@ -25,6 +25,6 @@ La lecture de ce livre nécessite une connaissance des bases de la programmation
 
 ## Contributions
 
-Ce livre est publié sous la licence Creative Commons [BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0/). Son code source est disponible sur [GitHub](https://github.com/bpesquet/programmation-orientee-objet-csharp). N'hésitez pas à contribuer à son amélioration en utilisant les *issues* pour signaler des erreurs et les *pull requests* pour proposer des améliorations.
+Ce livre est publié sous la licence Creative Commons [BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0/). Son code source est disponible sur [GitHub](https://github.com/lmdsio-slam2/cours). N'hésitez pas à contribuer à son amélioration en utilisant les *issues* pour signaler des erreurs et les *pull requests* pour proposer des améliorations.
 
 Merci d'avance et bonne lecture !
