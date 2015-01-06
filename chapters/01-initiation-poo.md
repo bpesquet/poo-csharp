@@ -191,7 +191,7 @@ Le type de la variable `comptePierre` est `CompteBancaire`. Le type d'un objet e
 
 **L'instanciation** utilise l'opérateur `new`, qui permet de réserver une zone mémoire spécifique pour l'objet. On dit que l'objet est instancié par l'opérateur `new`. Sans cette étape indispensable, l'objet déclaré ne peut pas être utilisé.
 
-**DEFINTION** : **l'instanciation** est l'opération qui consiste à créer un nouvel objet à partir d'une classe, au moyen de l'opérateur `new`.
+**DEFINITION** : **l'instanciation** est l'opération qui consiste à créer un nouvel objet à partir d'une classe, au moyen de l'opérateur `new`.
 
 Il est courant de rassembler sur une même ligne déclaration et instanciation d'un objet.
 
