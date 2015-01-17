@@ -1,6 +1,6 @@
 # Gestion des objets en mémoire
 
-L’objectif de ce chapitre est de découvrir les spécificités des variables de type objet, ainsi que la notion de référence.
+L’objectif de ce chapitre est de découvrir les spécificités des variables de type objet, ainsi que la notion de **référence**.
 
 ## Préambule
 
