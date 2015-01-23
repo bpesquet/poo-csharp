@@ -1,7 +1,7 @@
 # Summary
 
 * [Initiation à la POO](chapters/01-initiation-poo.md)
-* [Principaux concepts objets](chapters/02-principaux-concepts-objet.md)
+* [Principaux concepts objets](chapters/02-principaux-concepts-objets.md)
 * [Gestion des objets en mémoire](chapters/03-gestion-objets-memoire.md)
 * [La relation d'association](chapters/04-relation-association.md)
 * [La relation d'héritage](chapters/05-relation-heritage.md)

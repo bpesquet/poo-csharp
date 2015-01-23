@@ -1,4 +1,4 @@
-# Principaux concepts objet
+# Principaux concepts objets
 
 L'objectif de ce chapitre est de présenter les concepts essentiels de la programmation orientée objet.
 
