@@ -113,7 +113,7 @@ public class CompteBancaire
 L'encapsulation offre de nombreux avantages :
 
 * diminution des risques de mauvaise manipulation d'une classe.
-* dréation de classes "boîtes noires" par masquage des détails internes.
+* création de classes "boîtes noires" par masquage des détails internes.
 * possibilité de modifier les détails internes d'une classe (la manière dont elle fonctionne) sans changer son comportement extérieur (ce qu'elle permet de faire).
 
 ## Accesseurs
