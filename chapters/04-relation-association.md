@@ -1,6 +1,6 @@
 # La relation d'association
 
-L'objectif de ce chapitre est de pourquoi et comment mettre des objets en relation les uns avec les autres.
+L'objectif de ce chapitre est de découvrir pourquoi et comment mettre des objets en relation les uns avec les autres.
 
 ## Introduction aux relations entre objets
 
