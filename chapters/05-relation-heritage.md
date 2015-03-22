@@ -4,7 +4,7 @@ L'objectif de ce chapitre est d'enrichir notre compréhension de l'héritage et 
 
 ## Contexte d'exemple
 
-Dans un [précédent chapitre](02-principaux-concepts-objet.md), nous avions modélisé un compte bancaire et un compte épargne sous la forme d'une relation d'héritage entre les classes `CompteBancaire` et `CompteEpargne`. Ce chapitre nous a permis de découvrir les grands principes de l'héritage.
+Dans un [précédent chapitre](02-principaux-concepts-objets.md), nous avions modélisé un compte bancaire et un compte épargne sous la forme d'une relation d'héritage entre les classes `CompteBancaire` et `CompteEpargne`. Ce chapitre nous a permis de découvrir les grands principes de l'héritage.
 
 ![Diagramme UML des classes CompteBancaire et CompteEpargne](../images/uml_compte_epargne_1.jpg)
 
