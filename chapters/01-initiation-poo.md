@@ -71,17 +71,17 @@ A un instant donné, l'état d'un objet "compte bancaire" sera constitué par le
 
 Nous venons de voir que l'on pouvait représenter un compte bancaire sous la forme d'un objet. Imaginons que nous voulions gérer les différents comptes d'une banque. Chaque compte aura son propre titulaire, son solde particulier et sa devise. Mais tous les comptes auront un titulaire, un solde et une devise, et permettront d'effectuer les mêmes opérations de débit/crédit. Chaque objet "compte bancaire" sera construit sur le même modèle : ce modèle est appelée une **classe**.
 
-**DEFINITION** : une **classe** est un **modèle d'objet**. C'est un nouveau type créé par le programmeur et qui sert de modèle pour tous les objets de cette classe. Une classe spécifie les informations et les actions qu'auront en commun tous les objets créés à partir d'elle.
+**DEFINITION** : une **classe** est un **modèle d'objet**. C'est un nouveau type créé par le programmeur et qui sert de modèle pour tous les objets de cette classe. Une classe spécifie les informations et les actions qu'auront en commun tous les objets qui en sont issus.
 
 Le compte en banque appartenant à Jean, dont le solde est de 450 euros, est un compte bancaire particulier. Il s'agit d'un objet de la classe "compte bancaire". En utilisant le vocabulaire de la POO, on dit que l'objet "compte bancaire de Jean" est une **instance** de la classe "compte bancaire".
 
 **ATTENTION** : ne pas confondre **objet** et **classe**. Une classe est un type abstrait (exemple : un compte bancaire en général), un objet est un exemplaire concret d'une classe (exemple : le compte bancaire de Jean).
 
-Il y a le même rapport entre un objet et sa classe qu'entre une variable et son type. Un objet est une variable particulière dont le type est une classe.
+Un objet est une variable particulière dont le type est une classe.
 
 ### Représentation graphique
 
-Afin de faciliter la communication entre programmeurs utilisant des langages orientés objet différents, il existe un standard de représentation graphique d'une classe. Ce standard fait partie de la norme UML (*Unified Modeling Language*). On parle de **diagramme de classe**.
+Afin de faciliter la communication entre les programmeurs utilisant des langages orientés objet différents, il existe un standard de représentation graphique d'une classe. Ce standard fait partie de la norme UML (*Unified Modeling Language*). On parle de **diagramme de classe**.
 
 Voici la représentation de notre classe "compte bancaire" réalisée par Visual Studio.
 
@@ -102,9 +102,9 @@ Quel que soit l'outil utilisé, on observe que la classe est décomposée en deu
 
 * La POO consiste à programmer en utilisant des **objets**.
 * Un objet modélise un élément du domaine étudié (exemples : un compte bancaire, une voiture, un satellite, etc).
-* Un objet est une **instance** d'une **classe**. Une classe est un type abstrait, un objet est un exemplaire concret de cette classe.
+* Un objet est une **instance** de **classe**. Une classe est un type abstrait, un objet est un exemplaire concret de cette classe.
 * Une classe regroupe des **informations** et des **actions**.
-* Les informations sont stockées sous la forme de **champs**. Ils décrivent ce que savent les objets sur eux-mêmes, leur **état**.
+* Les informations sont stockées sous la forme de **champs**. Les champs décrivent l'**état** d'un objet.
 * Les actions réalisables sur un objet sont représentés par des **méthodes**. Elles expriment ce que les objets peuvent faire, leur **comportement**.
 
 Les informations stockées par un objet peuvent être appelées **champs**, **attributs** ou encore **propriétés**. Attention, ce dernier terme est ambigu en C# (voir plus loin).
@@ -139,11 +139,11 @@ La définition d'une classe commence par le mot-clé `class`. On retrouve ensuit
 
 Une méthode est une sorte de mini-programme. On peut y déclarer des variables locales et y utiliser tous les éléments de programmation déjà connus (alternatives, boucles, etc).
 
-On remarque d'un nouveau mot-clé : `public`, sur lequel nous reviendrons ultérieurement.
+On remarque un nouveau mot-clé : `public`, sur lequel nous reviendrons ultérieurement.
 
 ### Utilisation d'une classe
 
-En utilisant le modèle fourni par la classe, il est possible de créer autant d'objets que nécessaire. Des objets différents de la même classe disposent tous des mêmes attributs et méthodes, mais les valeurs des attributs sont différentes pour chaque objet. Par exemple, tous les comptes bancaires auront un solde, mais sauf exception, ce solde sera différent pour chaque compte.
+En utilisant le modèle fourni par la classe, il est possible de créer autant d'objets que nécessaire. Différents objets  d'une même classe disposent des mêmes attributs et des m^émes méthodes, mais les valeurs des attributs sont différentes pour chaque objet. Par exemple, tous les comptes bancaires auront un solde, mais sauf exception, ce solde sera différent pour chaque compte.
 
 Le programme C# ci-dessous utilise la classe `CompteBancaire` définie plus haut pour créer le compte de Jean et y effectuer deux opérations.
 
@@ -158,7 +158,7 @@ static void Main(string[] args)
     comptePierre.solde = 0;
     comptePierre.devise = "euros";
 
-    // appels de méthodes
+    // appels des méthodes
     comptePierre.Crediter(300);
     comptePierre.Debiter(500);
 
