@@ -4,7 +4,7 @@ L'objectif de ce chapitre est de présenter les concepts essentiels de la progra
 
 ## Constructeur
 
-Reprenons l'exemple de notre classe `CompteBancaire` du chapitre précédent.
+Reprenons l'exemple de la classe `CompteBancaire` du chapitre précédent.
 
 ![Diagramme de la classe CompteBancaire](../images/uml_compte_bancaire_4.png)
 
@@ -46,12 +46,12 @@ Console.WriteLine(comptePierre.Decrire());
 
 **REMARQUES**
 
-* Un constructeur par défaut (vide) est implicitement créé (pas besoin de l'écrire).
+* Un constructeur par défaut (vide) est implicitement créé (pas besoin de l'écrire mais c'est quand même préférable).
 * Une classe peut disposer de plusieurs constructeurs initialisant différents attributs.
 
 ## Encapsulation
 
-L'écriture de classes offre d'autres avantages que le simple regroupement de données et de traitements au même endroit. Parmi ces avantages figure la possibilité de restreindre l'accès à certains éléments de la classe. C'est ce que l'on appelle **l'encapsulation**.
+L'écriture de classes offre d'autres avantages que le simple regroupement de données et de traitements. Parmi ces avantages figure la possibilité de restreindre l'accès à certains éléments de la classe. C'est ce que l'on appelle **l'encapsulation**.
 
 Exemple d'utilisation
 ---------------------
