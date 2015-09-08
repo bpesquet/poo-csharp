@@ -51,7 +51,7 @@ Console.WriteLine(comptePierre.Decrire());
 
 ## Encapsulation
 
-L'écriture de classes offre d'autres avantages que le simple regroupement de données et de traitements. Parmi ces avantages figure la possibilité de restreindre l'accès à certains éléments de la classe. C'est ce que l'on appelle **l'encapsulation**.
+L'écriture de classes offre d'autres avantages que le simple regroupement de données et de traitements. Parmi ceux-ci figure la possibilité de restreindre l'accès à certains éléments de la classe. C'est ce que l'on appelle **l'encapsulation**.
 
 Exemple d'utilisation
 ---------------------
@@ -118,7 +118,7 @@ L'encapsulation offre de nombreux avantages :
 
 ## Accesseurs
 
-L'encapsulation des attributs a permis d'interdire toute modification (accidentelle ou volontaire) des données d'un compte bancaire. Cependant, il est maintenant impossible de consulter le solde, le titulaire ou la devise d'un compte créé, ce qui est gênant. On aimerait pouvoir accéder aux données de la classe, tout en maintenant un certain niveau de contrôle. Cela est possible en ajoutant à la classe des **accesseurs**.
+L'encapsulation des attributs a permis d'interdire toute modification (accidentelle ou volontaire) des données d'un compte bancaire. Cependant, il est maintenant impossible de consulter le solde, le titulaire ou la devise d'un compte créé, ce qui est gênant. On aimerait pouvoir accéder aux données de la classe, tout en maintenant un certain niveau de contrôle. Cela est possible en ajoutantdes **accesseurs** à la classe .
 
 ### Ajout d'accesseurs à une classe
 
@@ -163,7 +163,7 @@ public class CompteBancaire
 
 **REMARQUE** : en C#, les accesseurs prennent la forme de **propriétés**. Une propriété se manipule comme un champ, mais il s'agit en réalité d'un couple d'accesseurs *get* et *set*. Dans la plupart des autres langages, les accesseurs sont des méthodes de la forme `getXXX` et `setXXX`.
 
-**DANGER !** Ne pas confondre un champ ou attribut (qui, en général, commence par une lettre minuscule) avec une propriété au sens du C# (qui commence toujours par une lettre majuscule). **Une propriété C# est un accesseur vers un champ**.
+**DANGER !** Ne pas confondre un champ ou attribut (qui, par convention, commence par une lettre minuscule) avec une propriété au sens du C# (qui commence toujours par une lettre majuscule). **Une propriété C# est un accesseur vers un champ**.
 
 ### Avantages
 
@@ -182,7 +182,7 @@ En remplaçant l'accès direct à un attribut par l'utilisation d'une méthode, 
 
 ### Attributs en lecture seule
 
-On observe dans l'exemple ci-dessus qu'on peut à nouveau modifier directement les données d'un compte. Pour interdire ces modifications tout en permettant de lire les informations d'un compte, il suffit de supprimer les accesseurs en écriture (*setters*).
+On observe dans l'exemple ci-dessus qu'il est à nouveau possible de modifier directement les données d'un compte. Pour interdire ces modifications tout en permettant de lire les informations d'un compte, il suffit de supprimer les accesseurs en écriture (*setters*).
 
 ```csharp
 public class CompteBancaire
@@ -221,13 +221,13 @@ comptePierre.Devise = "dollars";                  // Erreur : pas de setter
 
 ## Héritage
 
-L'héritage est l'un des mécanismes fondamentaux de la POO. Il permet de créer des classes à partir de classes déjà existantes. Nous allons nous contenter d'une introduction à ce vaste sujet.
+L'héritage est l'un des mécanismes fondamentaux de la POO. Il permet de créer des classes à partir de classes existantes. Nous allons nous contenter d'une introduction à ce vaste sujet.
 
 ### Exemple d'utilisation
 
-Supposons maintenant que nous ayons à gérer un nouveau type de compte : le compte épargne. Comme un compte classique, un compte épargne possède un titulaire, un solde et une devise. Sa spécificité est qu'il permet d'appliquer des intérêts à l'argent déposé sur le compte.
+Supposons que nous ayons à gérer un nouveau type de compte : le compte épargne. Comme un compte classique, un compte épargne possède un titulaire, un solde et une devise. Sa spécificité est qu'il permet d'appliquer des intérêts à l'argent déposé sur le compte.
 
-Bien sûr, il serait possible de concevoir une classe `CompteEpargne` totalement distincte de la classe `CompteBancaire`. Cependant, on constate qu'un compte épargne possède toutes les caractéristiques d'un compte bancaire, ainsi que des caractéristiques spécifiques. Nous allons donc définir un compte épargne par **héritage** de la définition d’un compte bancaire.
+Bien sûr, il serait possible de concevoir une classe `CompteEpargne` totalement distincte de la classe `CompteBancaire`. Cependant, on constate qu'un compte épargne possède toutes les caractéristiques d'un compte bancaire plus des caractéristiques spécifiques. Nous allons donc définir un compte épargne par **héritage** de la définition d’un compte bancaire.
 
 ```csharp
 public class CompteEpargne : CompteBancaire
@@ -249,11 +249,11 @@ public class CompteEpargne : CompteBancaire
 }
 ```
 
-La syntaxe de déclaration `class CompteEpargne : CompteBancaire` indique que la classe `CompteEpargne` hérite de la classe `CompteBancaire`.
+Dans la déclaration `class CompteEpargne : CompteBancaire` les deux-points spécifient que la classe `CompteEpargne` hérite de la classe `CompteBancaire`.
 
 **REMARQUE** : d'autres langages comme Java ou PHP utilisent le mot-clé ``extends`` plutôt que le symbole ``:`` pour indiquer une relation d'héritage entre deux classes.
 
-On observe que le constructeur de `CompteEpargne` fait appel au constructeur de `CompteBancaire` afin d'initialiser ses attributs, en utilisant le mot-clé `base` qui désigne la classe parente. Il initialise également l'attribut `tauxInteret` défini dans `CompteEpargne`.
+On observe que le constructeur de `CompteEpargne` fait appel au constructeur de `CompteBancaire` pour en initialiser les attributs. Le mot-clé `base` désigne la classe parente. Le constructeur de `CompteEpargne` initialise également l'attribut `tauxInteret` qui lui est propre.
 
 ### Représentation graphique
 
@@ -264,7 +264,7 @@ Le formalisme graphique UML décrit la relation d'héritage entre deux classes p
 Définition
 ----------
 
-**DEFINITION** : **l'héritage** est un mécanisme objet qui consiste à définir une classe à partir d'une classe existante. Une classe qui hérite d'une autre classe possède les caractéristiques de la classe initiale et peut définir ses propres éléments.
+**DEFINITION** : **l'héritage** est un mécanisme objet qui consiste à définir une classe à partir d'une classe existante. Une classe héritant d'une autre classe possède les caractéristiques de la classe initiale et peut définir ses propres éléments.
 
 La nouvelle classe (ou classe **dérivée**) correspond à une **spécialisation** de la classe de base (appelée classe **parente** ou **superclasse**). On dit que l'héritage crée une relation de type **est un** entre les classes. Dans notre exemple, un compte épargne *est un* type particulier de compte bancaire.
 
