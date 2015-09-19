@@ -314,7 +314,7 @@ Tous les comptes portent le même numéro ! Cela vient du fait que chaque instan
 
 La solution serait de lier l'attribut `numeroProchainCompte` à la classe `CompteBancaire` elle-même, et non à chacune de ses instances. Le même attribut serait partagé entre toutes les instances de la classe, ce qui permettrait d'obtenir des numéros de compte uniques.
 
-On parle **d'attributs de classe**, par opposition aux attributs "classiques" appelés **attributs d'instance** quand on veut distinguer les deux types d'attributs.
+On parle **d'attributs de classe**, par opposition aux attributs appelés **attributs d'instance** quand on veut distinguer les deux types d'attributs.
 
 En C# (ainsi qu'en Java et en C++), la création d'un attribut de classe se fait en précisant sa définition grâce au mot-clé `static`, que vous avez déjà rencontré sans véritablement connaître sa signification.
 
