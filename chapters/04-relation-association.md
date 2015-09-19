@@ -342,7 +342,7 @@ Soit le diagramme UML ci-dessous.
 
 L'association est navigable de `Livre` vers `Page`. Il y aura donc une ou plusieurs références à `Page` dans la classe `Livre`, mais pas de référence à `Livre` dans la classe `Page`.
 
-La multiplicité au niveau de `Page` est *1..\**. Un livre est composé de une ou plusieurs pages. L'attribut ajouté dans `Livre` doit permettre de stocker un nombre quelconque d'instances de `Page`. On utilise donc une liste d'objets de type `Page`. Afin de respecter le rôle défini pour la classe `Page` dans l'association, l'attribut correspond est nommé `pages`.
+La multiplicité au niveau de `Page` est *1..\**. Un livre est composé de une ou plusieurs pages. L'attribut ajouté dans `Livre` doit permettre de stocker un nombre quelconque d'instances de `Page`. On utilise donc une liste d'objets de type `Page`. Afin de respecter le rôle défini pour la classe `Page` dans l'association, l'attribut correspondant est nommé `pages`.
 
 ```csharp
 class Livre
