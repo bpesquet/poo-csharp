@@ -16,17 +16,17 @@ La suite de ce chapitre utilise le langage C#, mais presque tous les concepts é
 
 ### Contexte choisi
 
-Pour illustrer le fontionnement des exceptions en Java, nous allons prendre exemple sur le plus célèbre des gaffeurs (© Marsu Productions).
+Pour illustrer le fontionnement des exceptions en C#, nous allons prendre exemple sur le plus célèbre des gaffeurs (© Marsu Productions).
 
 ![Gaston Lagaffe](../images/gaston.jpg)
 
-Nous allons modéliser Gaston sous la forme d'une classe dont les méthodes reflèteront son comportement.
+Nous allons modéliser Gaston sous la forme d'une classe dont les méthodes reflèteront le comportement.
 
-**REMARQUE** : afin de bien faire comprendre à quels moments des exceptions se produisent, les méthodes de ce cours affichent des messages sur la sortie standard (`Console.WriteLine`). En règle générale, cette pratique est déconseillée.
+**REMARQUE** : afin de vous permettre d'identifier le moment où se produisent des exceptions , les méthodes de cet exemple affichent les messages sur la sortie standard (`Console.WriteLine`). En règle générale, cette pratique est déconseillée.
 
 ### Un premier exemple
 
-Pour commencer, ajoutons à Gaston une capacité (limitée...) à trier le courrier en retard.
+Pour commencer, ajoutons à Gaston la capacité (limitée...) de trier le courrier en retard.
 
 ```csharp
 public class GastonLagaffe
@@ -298,7 +298,7 @@ public class GastonLagaffe
 }
 ```
 
-On ajoute au programme principal un sous-programme qui appelle cette méthode et intercepte les d'éventuelles exceptions.
+On ajoute au programme principal un sous-programme qui appelle cette méthode et intercepte les éventuelles exceptions.
 
 ```csharp
 // ...

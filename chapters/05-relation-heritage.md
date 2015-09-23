@@ -30,9 +30,9 @@ Console.WriteLine(compte.Decrire());
 
 ![Résultat de l'exécution](../images/polymorphisme.jpg)
 
-Un compte épargne "est un" compte bancaire. On peut donc considérer un compte épargne comme un compte bancaire, et stocker un compte épargne dans une liste de comptes bancaires. On peut même appeler la méthode `Decrire` sur chacun des éléments de la liste de comptes bancaires. C'est ce qu'on appelle le **polymorphisme**.
+Un compte épargne "est un" compte bancaire. On peut donc stocker un compte épargne dans une liste de comptes bancaires. On peut même appeler la méthode `Decrire` sur chacun des éléments de la liste de comptes bancaires. C'est ce qu'on appelle le **polymorphisme**.
 
-**DEFINITION** : utiliser le **polymorphisme** consiste à écrire un code générique qui pourra s'appliquer à des objets de classes différentes.
+**DEFINITION** : utiliser le **polymorphisme** consiste à écrire un code générique qui pourra s'appliquer à des objets appartenant à des classes différentes.
 
 Le polymorphisme rend le code plus concis, plus élégant et plus sûr. C'est un mécanisme à utiliser lorsque l'occasion se présente.
 
@@ -42,14 +42,14 @@ Le polymorphisme rend le code plus concis, plus élégant et plus sûr. C'est un
 
 Nous obtenons les précisions suivantes sur notre domaine d'étude :
 
-* un compte bancaire est soit un compte courant, soir un compte épargne.
+* un compte bancaire est soit un compte courant, soit un compte épargne.
 * un compte courant se caractérise par le numéro de la carte bancaire qui lui est associée, ainsi que par un découvert maximal autorisé. Tout retrait qui ferait passer le nouveau solde en dessous du découvert maximal est interdit et non effectué.
 * on ne peut retirer en une seule fois plus de la moitié du solde d'un compte épargne.
 
 ### Création d'une classe abstraite
 
 Notre modélisation objet du domaine doit refléter ces évolutions. Jusqu'à présent, un compte épargne hérite de toutes les caractéristiques d'un compte bancaire, et en ajoute d'autres (taux d'intérêt). Nous voyons apparaître des éléments spécifiques à un compte courant : numéro de CB, découvert maximal. Il serait maladroit d'ajouter ces attributs à la classe `CompteBancaire`, puisqu'ils seraient hérités par la classe `CompteEpargne` alors qu'ils ne la concernent pas.
-
+Proposition : diagramme de classe illustrant le paragraphe ci-dessus.
 La bonne solution est de placer dans la classe `CompteBancaire` les éléments communs à tous les types de comptes. Deux autres classes, `CompteCourant` et `CompteEpargne`, héritent de `CompteBancaire` afin d'intégrer ces éléments communs. Chaque classe dérivée contient ce qui est spécifique à chaque type de compte. Le diagramme ci-dessous reflète cette modélisation.
 
 ![Diagramme UML des classes CompteBancaire, CompteCourant et CompteEpargne](../images/uml_classe_abstraite.jpg)
@@ -71,7 +71,7 @@ En C# (ainsi qu'en Java et en C++), le mot-clé `abstract` permet de préciser q
 
 ![Diagramme UML de la classe CompteBancaire](../images/uml_italiques.jpg)
 
-**DEFINITION** : une **classe abstraite** définit un concept abstrait, incomplet ou théorique. Elle rassemble des éléments communs à plusieurs classes dérivées. Elle n'est pas destinée à être instanciée.
+**DEFINITION** : une **classe abstraite** définit un concept abstrait, incomplet ou théorique. Elle rassemble des éléments **communs** à plusieurs classes dérivées. **Elle n'est pas destinée à être instanciée**.
 
 On vérifie rapidement qu'une classe abstraite n'est pas instanciable.
 

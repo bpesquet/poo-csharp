@@ -9,7 +9,7 @@ Ce chapitre utilise une classe `Cercle` définie de la manière suivante.
 ![Diagramme UML de la classe Cercle](../images/uml_cercle.jpg)
 
 ```csharp
-// modélise un cercle mathématique
+// modélise un cercle
 public class Cercle
 {
     private double rayon;  // rayon du cercle
@@ -49,7 +49,7 @@ Cercle monCercle;             // déclaration
 monCercle = new Cercle(7.5);  // instanciation
 ```
 
-On peut rassembler ces deux étapes en une seule ligne. Cependant, il est important de bien les distinguer conceptuellement.
+On peut rassembler ces deux étapes sur une seule ligne. Cependant, il est important de bien les distinguer conceptuellement.
 
 ```csharp
 Cercle monCercle = new Cercle(7.5);   // déclaration et instanciation
@@ -61,9 +61,9 @@ Avant son instanciation, la “valeur” d’un objet en mémoire, observable au
 
 ### La spécificité des objets
 
-Nous allons découvrir une différence fondamentale entre le fonctionnement d’une variable de type simple (types C# de base : `int`, `double`, `bool`, etc) et le fonctionnement d’un objet.
+Nous allons découvrir une différence fondamentale entre le fonctionnement d’une variable de type prédéfini (types C# de base : `int`, `double`, `bool`, etc) et le fonctionnement d’un objet.
 
-Considérons le code suivant, qui utilise deux variables entières.
+Le code suivant utilise deux variables entières.
 
 ```csharp
 int nombre1;
@@ -111,7 +111,7 @@ L'instruction `cercle1.Rayon = 10` a simultanément modifié le rayon de `cercle
 
 ### La notion de référence
 
-Revenons à notre exemple initial. Nous savons que la création d'une variable déclenche la réservation en mémoire d'une zone dédiée pour stocker sa valeur.
+Revenons à notre exemple initial. Nous savons que la création d'une variable déclenche la réservation en mémoire d'une zone dédiée au stockage de sa valeur.
 
 ![Stockage d'entiers en mémoire](../images/memoire_entiers.jpg)
 
@@ -127,7 +127,7 @@ Les observations précédentes ont maintenant une explication : l'affectation `c
 
 ![Stockage d'objets en mémoire](../images/memoire_cercle_2.jpg)
 
-**DEFINITION** : une affectation d'un objet à un autre ne déclenche pas la copie du *contenu* des objets. La **référence** (adresse mémoire) du premier objet est affectée au second, et les deux objets "pointent" vers la même zone mémoire.
+**DEFINITION** : l'affectation d'un objet à un autre ne déclenche pas la copie du *contenu* des objets. La **référence** (adresse mémoire) du premier objet est affectée au second, et les deux objets "pointent" vers la même zone mémoire.
 
 Pour dupliquer l'objet lui-même et non sa référence, il faut utiliser d'autres techniques que vous découvrirez ultérieurement.
 
@@ -138,17 +138,17 @@ Pour dupliquer l'objet lui-même et non sa référence, il faut utiliser d'autre
 * les types **valeurs**, où la valeur est directement stockée dans la variable.
 * les types **références**, où la variable stocke l'emplacement mémoire de la valeur.
 
-Les types simples du langage (`int`, `double`, etc) sont des types valeurs. Les classes et les tableaux sont des types référence.
+Les types prédéfini (`int`, `double`, etc) sont des types valeurs. Les classes et les tableaux sont des types référence.
 
 Pourquoi avoir introduit la notion de référence dans le langage ? Essentiellement pour des raisons de performances. Contrairement aux types valeur, un objet (ou une liste d'objets) peut occuper une taille non négligeable en mémoire. De trop nombreuses copies d'objets auraient donc pu ralentir l'exécution d'un programme. Grâce aux références, une affectation entre objets est quasi-instantanée : la seule information copiée est une adresse mémoire, et non l'objet lui-même.
 
-Le langage Java fait aussi cette distinction entre types valeurs et références ([Parameter passing in Java](http://www.yoda.arachsys.com/java/passing.html)). Les objets en Python stockent également des références. Le langage C++ va encore plus loin : il distingue références et *pointeurs*.
+Le langage Java fait aussi la distinction entre types valeurs et références ([Parameter passing in Java](http://www.yoda.arachsys.com/java/passing.html)). Les objets en Python stockent également des références. Le langage C++ va encore plus loin : il distingue références et *pointeurs*.
 
-Il est très important de savoir si une variable est de type valeur ou référence car cela a un impact sur deux aspects : la comparaison et le passage en paramètre.
+Il est très important de savoir si une variable est de type valeur ou de type référence car cela a un impact sur la comparaison d'objets et le passage d'un objet en paramètre.
 
 ## Comparaison d'objets
 
-Etudions ce que ce produit lorsque l'on compare deux variables de type valeur, comme des entiers.
+Etudions ce qui ce produit lorsque l'on compare deux variables de type valeur, comme des entiers.
 
 ```csharp
 int nombre1;
