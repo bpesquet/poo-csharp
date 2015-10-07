@@ -165,7 +165,6 @@ Remarquez l'absence d'accolades ouvrantes et fermantes après le nom `Debiter`, 
 
 * **Déclarer** une méthode, c'est dire ce que doit faire cette méthode, sans dire comment.
 * **Définir** une méthode, c'est dire comment cette méthode fait ce qu'elle doit faire, autrement dit l'implémenter.
-{{% /definition %}}
 
 On constate que notre classe `CompteCourant` actuelle ne compile plus : il est obligatoire d'y redéfinir la méthode `Debiter`.
 
