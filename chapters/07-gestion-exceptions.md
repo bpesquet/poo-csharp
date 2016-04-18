@@ -371,7 +371,7 @@ Il existe d'autres solutions que l'utilisation des exceptions pour gérer les er
 
 Sans utiliser d'exceptions, on est obligé de tester la réussite de chaque opération au fur et à mesure du déroulement. Par exemple, une méthode d'écriture dans un fichier pourrait s'écrire comme ci-dessous.
 
-```text
+```
 public void EcrireDansFichier(string texte)
 {
     <ouverture du fichier en écriture>
@@ -404,7 +404,7 @@ public void EcrireDansFichier(string texte)
 
 Réécrit en utilisant des exceptions, ce code pourrait devenir :
 
-```text
+```
 public void EcrireDansFichier(string texte)
 {
     try
@@ -431,7 +431,7 @@ public void EcrireDansFichier(string texte)
 
 Cette solution sépare le code applicatif du code de gestion des erreurs, regroupé dans les `catch`. Si la gestion des erreurs est la même dans tous les blocs `catch`, on peut même simplifier encore le code précédent.
 
-```text
+```
 public void EcrireDansFichier(string texte)
 {
     try
