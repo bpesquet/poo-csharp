@@ -143,7 +143,7 @@ On remarque un nouveau mot-clé : `public`, sur lequel nous reviendrons ultérie
 
 ### Utilisation d'une classe
 
-En utilisant le modèle fourni par la classe, il est possible de créer autant d'objets que nécessaire. Différents objets  d'une même classe disposent des mêmes attributs et des m^émes méthodes, mais les valeurs des attributs sont différentes pour chaque objet. Par exemple, tous les comptes bancaires auront un solde, mais sauf exception, ce solde sera différent pour chaque compte.
+En utilisant le modèle fourni par la classe, il est possible de créer autant d'objets que nécessaire. Différents objets  d'une même classe disposent des mêmes attributs et des mêmes méthodes, mais les valeurs des attributs sont différentes pour chaque objet. Par exemple, tous les comptes bancaires auront un solde, mais sauf exception, ce solde sera différent pour chaque compte.
 
 Le programme C# ci-dessous utilise la classe `CompteBancaire` définie plus haut pour créer le compte de Jean et y effectuer deux opérations.
 
