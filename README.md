@@ -1,6 +1,10 @@
 Programmation orientée objet en C#
 =====
 
+Ce livre est un support de cours à l'[Ecole Nationale Supérieure de Cognitique](http://www.ensc.fr).
+
+![](images/ensc-logo.png)
+
 ## Résumé
 
 Ce livre est une introduction à la **programmation orientée objet** (POO). Il présente de manière progressive et illustrée les concepts essentiels et les savoir-faire associés :
