@@ -118,7 +118,9 @@ L'encapsulation offre de nombreux avantages :
 
 ## Accesseurs
 
-L'encapsulation des attributs a permis d'interdire toute modification (accidentelle ou volontaire) des données d'un compte bancaire. Cependant, il est maintenant impossible de consulter le solde, le titulaire ou la devise d'un compte créé, ce qui est gênant. On aimerait pouvoir accéder aux données de la classe, tout en maintenant un certain niveau de contrôle. Cela est possible en ajoutantdes **accesseurs** à la classe.
+L'encapsulation des attributs a permis d'interdire toute modification (accidentelle ou volontaire) des données d'un compte bancaire. Cependant, il est maintenant impossible de consulter le solde, le titulaire ou la devise d'un compte créé, ce qui est gênant. On aimerait pouvoir accéder aux données de la classe, tout en maintenant un certain niveau de contrôle. Cela est possible en ajoutant des **accesseurs** à la classe.
+
+### Définition
 
 **DEFINITION** : un **accesseur** est une méthode le plus souvent *publique* qui permet d'accéder à un attribut *privé*.
 
@@ -219,6 +221,21 @@ public class CompteBancaire
     {
         get { return devise; }
     }
+
+    // ...
+```
+
+Avec des propriétés automatiques et avant la version 6 du langage sortie en 2015, on peut seulement jouer sur le niveau de visibilité.
+
+```csharp
+public class CompteBancaire
+{
+    public string Titulaire { get; private set; }
+    //public string Titulaire { get; } : Incorrect avant C# 6
+
+    public double Solde { get; private set; }
+
+    public string Devise { get; private set; }
 
     // ...
 ```
