@@ -118,11 +118,18 @@ L'encapsulation offre de nombreux avantages :
 
 ## Accesseurs
 
-L'encapsulation des attributs a permis d'interdire toute modification (accidentelle ou volontaire) des données d'un compte bancaire. Cependant, il est maintenant impossible de consulter le solde, le titulaire ou la devise d'un compte créé, ce qui est gênant. On aimerait pouvoir accéder aux données de la classe, tout en maintenant un certain niveau de contrôle. Cela est possible en ajoutantdes **accesseurs** à la classe .
+L'encapsulation des attributs a permis d'interdire toute modification (accidentelle ou volontaire) des données d'un compte bancaire. Cependant, il est maintenant impossible de consulter le solde, le titulaire ou la devise d'un compte créé, ce qui est gênant. On aimerait pouvoir accéder aux données de la classe, tout en maintenant un certain niveau de contrôle. Cela est possible en ajoutantdes **accesseurs** à la classe.
 
-### Ajout d'accesseurs à une classe
+**DEFINITION** : un **accesseur** est une méthode le plus souvent *publique* qui permet d'accéder à un attribut *privé*.
 
-Voici la classe `CompteBancaire` modifiée pour intégrer des accesseurs vers ses attributs, ainsi que son diagramme de classe.
+* un accesseur en lecture (*getter*) permet de **lire** la valeur d'un attribut.
+* un accesseur en écriture (mutateur ou *setter*) permet de **modifier** la valeur d'un attribut.
+
+### Spécificités du langage C♯
+
+En C#, les accesseurs prennent la forme de **propriétés**. Une propriété se manipule comme un champ, mais il s'agit en réalité d'un couple d'accesseurs *get* et *set*. Dans la plupart des autres langages, les accesseurs sont des méthodes de la forme `getXXX` et `setXXX`.
+
+Voici la classe `CompteBancaire` modifiée pour intégrer des accesseurs vers ses attributs, ainsi que son nouveau diagramme de classe.
 
 ```csharp
 public class CompteBancaire
@@ -154,14 +161,21 @@ public class CompteBancaire
 
 ![Diagramme de la classe CompteBancaire](../images/uml_compte_bancaire_2.jpg)
 
-### Définition
+Depuis la version 3 du langage, on peut définir les propriétés de manière automatique. Dans ce cas, l'attribut disparaît de la définition de le classe : sa présence est implicite. Voici l'exemple précédent réécrit en utilisant des propriétés automatiques.
 
-**DEFINITION** : un **accesseur** est une méthode le plus souvent *publique* qui permet d'accéder à un attribut *privé*.
+```csharp
+public class CompteBancaire
+{
+    public string Titulaire { get; set; }
 
-* un accesseur en lecture (*getter*) permet de **lire** la valeur d'un attribut.
-* un accesseur en écriture (mutateur ou *setter*) permet de **modifier** la valeur d'un attribut.
+    public double Solde { get; set; }
 
-**REMARQUE** : en C#, les accesseurs prennent la forme de **propriétés**. Une propriété se manipule comme un champ, mais il s'agit en réalité d'un couple d'accesseurs *get* et *set*. Dans la plupart des autres langages, les accesseurs sont des méthodes de la forme `getXXX` et `setXXX`.
+    public string Devise { get; set; }
+
+    // ...
+```
+
+Cette syntaxe permet de gagner en concision si, comme le plus souvent, les accesseurs se contentent de donner accès à l'attribut sous-jacent sans rien faire de particulier.
 
 **DANGER !** Ne pas confondre un champ ou attribut (qui, par convention, commence par une lettre minuscule) avec une propriété au sens du C# (qui commence toujours par une lettre majuscule). **Une propriété C# est un accesseur vers un champ**.
 
