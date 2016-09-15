@@ -225,7 +225,7 @@ public class CompteBancaire
     // ...
 ```
 
-Avec des propriétés automatiques et avant la version 6 du langage sortie en 2015, on peut seulement jouer sur le niveau de visibilité.
+Avec des propriétés automatiques, on peut seulement jouer sur le niveau de visibilité des accesseurs. La version 6 du langage C#, sortie en 2015, permet d'avoir réellement des propriétés automatique en lecture seule ([Plus de détails](http://stackoverflow.com/questions/2480503/is-read-only-auto-implemented-property-possible)).
 
 ```csharp
 public class CompteBancaire
