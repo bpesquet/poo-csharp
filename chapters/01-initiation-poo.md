@@ -81,7 +81,7 @@ Un objet est une variable particulière dont le type est une classe.
 
 ### Représentation graphique
 
-Afin de faciliter la communication entre les programmeurs utilisant des langages orientés objet différents, il existe un standard de représentation graphique d'une classe. Ce standard fait partie de la norme UML (*Unified Modeling Language*). On parle de **diagramme de classe**.
+Afin de faciliter la communication entre les programmeurs n'utilisant pas le même langage de programmation objet, il existe un standard de représentation graphique d'une classe. Ce standard fait partie de la norme UML (*Unified Modeling Language*). On parle de **diagramme de classe**.
 
 Voici la représentation de notre classe "compte bancaire" réalisée par Visual Studio.
 
