@@ -2,7 +2,7 @@
 
 L'objectif de ce chapitre est de présenter les concepts essentiels de la programmation orientée objet.
 
-Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap1-Initiation).
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap2-Concepts).
 
 ## Constructeur
 
