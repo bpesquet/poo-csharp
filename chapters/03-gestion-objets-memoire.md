@@ -2,6 +2,8 @@
 
 L’objectif de ce chapitre est de découvrir les spécificités des variables de type objet, ainsi que la notion de **référence**.
 
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap3-Memoire).
+
 ## Préambule
 
 Ce chapitre utilise une classe `Cercle` définie de la manière suivante.
@@ -9,7 +11,7 @@ Ce chapitre utilise une classe `Cercle` définie de la manière suivante.
 ![Diagramme UML de la classe Cercle](../images/uml_cercle.jpg)
 
 ```csharp
-// modélise un cercle
+// Modélise un cercle
 public class Cercle
 {
     private double rayon;  // rayon du cercle
@@ -89,8 +91,8 @@ Cercle cercle2 = new Cercle(3);   // déclaration et instanciation
 cercle2 = cercle1;
 cercle1.Rayon = 10;
 
-Console.WriteLine("cercle1.Rayon = " + cercle1.Rayon);
-Console.WriteLine("cercle2.Rayon = " + cercle2.Rayon);
+Console.WriteLine("cercle1.Rayon = " + cercle1.Rayon); // 10
+Console.WriteLine("cercle2.Rayon = " + cercle2.Rayon); // 10 (???)
 ```
 
 ![Résultat de l'exécution](../images/affectation_objets.png)
@@ -266,7 +268,7 @@ Tentons de comprendre pourquoi avec une représentation mémoire de l'exécution
 
 Au moment de l'appel du sous-programme, la valeur de l'argument `cercle`, autrement dit la référence vers l'objet associé, est copiée dans le paramètre `unCercle`. Les variables `cercle` et `unCercle` contiennent la même référence et "pointent" donc vers le même emplacement mémoire. Cela explique que la modification faite dans le sous-programme ait un impact au niveau du programme principal : l'objet référencé est le même.
 
-**DEFINITION** : par défaut, tous les paramètres sont passés par valeur en C#.
+**DEFINITION** : par défaut, **tous les paramètres sont passés par valeur en C#**.
 
 * Dans le cas d'un type **valeur**, la valeur est copiée de l'argument vers le paramètre. Paramètre et argument concernent des zones mémoires différentes. Les modifications du paramètre n'ont pas d'impact sur l'argument.
 * Dans le cas d'un type **référence**, la référence est copiée de l'argument vers le paramètre. Paramètre et argument concernent la même zone mémoire. Les modifications du paramètre modifient aussi l'argument.
