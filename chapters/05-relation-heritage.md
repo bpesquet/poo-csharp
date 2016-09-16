@@ -1,40 +1,169 @@
 # La relation d'héritage
 
-L'objectif de ce chapitre est d'enrichir notre compréhension de l'héritage et de ses possibilités.
+L'héritage est l'un des mécanismes fondamentaux de la POO. Il permet de créer des classes à partir de classes existantes. L'objectif de ce chapitre est de découvrir son fonctionnement.
 
-## Contexte d'exemple
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap5-Heritage).
 
-Dans un [précédent chapitre](02-principaux-concepts-objets.md), nous avions modélisé un compte bancaire et un compte épargne sous la forme d'une relation d'héritage entre les classes `CompteBancaire` et `CompteEpargne`. Ce chapitre nous a permis de découvrir les grands principes de l'héritage.
+## Premiers pas
 
-![Diagramme UML des classes CompteBancaire et CompteEpargne](../images/uml_compte_epargne_1.jpg)
+### Exemple d'utilisation
 
-## Polymorphisme
+Reprenons nos classes `CompteBancaire` et `Client`, et supposons que nous ayons à gérer un nouveau type de compte : le compte épargne. Comme un compte classique, un compte épargne possède un titulaire, un solde et une devise. Sa spécificité est qu'il permet d'appliquer des intérêts à l'argent déposé sur le compte.
 
-Afin de gagner en généricité, on peut appliquer le même code à des objets de types différents, lorsque les classes de ces objets sont liées par héritage.
-
-Prenons l'exemple d'une liste de comptes bancaires dont l'un est un compte épargne.
+Bien sûr, il serait possible de concevoir une classe `CompteEpargne` totalement distincte de la classe `CompteBancaire`. Cependant, on constate qu'un compte épargne possède toutes les caractéristiques d'un compte bancaire plus des caractéristiques spécifiques. Nous allons donc définir un compte épargne par **héritage** de la définition d’un compte bancaire.
 
 ```csharp
-CompteBancaire comptePierre = new CompteBancaire("Pierre", 300, "euros");
-CompteEpargne comptePaul = new CompteEpargne("Paul", 200, "dollars", 0.05);
-CompteBancaire compteJacques = new CompteBancaire("Jacques", 50, "euros");
+public class CompteEpargne : CompteBancaire
+{
+    private double tauxInteret;
 
-List<CompteBancaire> listeComptes = new List<CompteBancaire>();
-listeComptes.Add(comptePierre);
-listeComptes.Add(comptePaul);     // Est-ce bien un compte bancaire ?
-listeComptes.Add(compteJacques);
+    public CompteEpargne(Client leTitulaire, double soldeInitial, string laDevise, double leTauxInteret) : base(leTitulaire, soldeInitial, laDevise)
+    // appel du constructeur de la classe CompteBancaire
+    // le mot-clé "base" permet d'accéder à la classe parente
+    {
+        tauxInteret = leTauxInteret;
+    }
 
-foreach (CompteBancaire compte in listeComptes)
-Console.WriteLine(compte.Decrire());
+    // Calcule et ajoute les intérêts au solde du compte
+    public void AjouterInterets()
+    {
+        // ... (détaillé plus bas)
+    }
+}
 ```
 
-![Résultat de l'exécution](../images/polymorphisme.jpg)
+Dans la déclaration `class CompteEpargne : CompteBancaire`, les deux-points spécifient que la classe `CompteEpargne` hérite de la classe `CompteBancaire`.
 
-Un compte épargne "est un" compte bancaire. On peut donc stocker un compte épargne dans une liste de comptes bancaires. On peut même appeler la méthode `Decrire` sur chacun des éléments de la liste de comptes bancaires. C'est ce qu'on appelle le **polymorphisme**.
+**REMARQUE** : d'autres langages comme Java ou PHP utilisent le mot-clé ``extends`` plutôt que le symbole ``:`` pour indiquer une relation d'héritage entre deux classes.
 
-**DEFINITION** : utiliser le **polymorphisme** consiste à écrire un code générique qui pourra s'appliquer à des objets appartenant à des classes différentes.
+On observe que le constructeur de `CompteEpargne` fait appel au constructeur de `CompteBancaire` pour en initialiser les attributs. Le mot-clé `base` désigne la classe parente. Le constructeur de `CompteEpargne` initialise également l'attribut `tauxInteret` qui lui est propre.
 
-Le polymorphisme rend le code plus concis, plus élégant et plus sûr. C'est un mécanisme à utiliser lorsque l'occasion se présente.
+### Représentation graphique
+
+Le formalisme graphique UML décrit la relation d'héritage entre deux classes par une **flèche pleine** allant de la classe dérivée à la classe de base (les propriétés C# de `CompteBancaire` ont été masquées afin d'alléger le diagramme).
+
+![Diagramme de classes UML](../images/uml_compte_epargne_1.jpg)
+
+### Définition
+
+**DEFINITION** : **l'héritage** est un mécanisme objet qui consiste à définir une classe à partir d'une classe existante. Une classe héritant d'une autre classe possède les caractéristiques de la classe initiale et peut définir ses propres éléments.
+
+La nouvelle classe (ou classe **dérivée**) correspond à une **spécialisation** de la classe de base (appelée classe **parente** ou **superclasse**). On dit que l'héritage crée une relation de type **est un** entre les classes. Dans notre exemple, un compte épargne *est un* type particulier de compte bancaire.
+
+**ATTENTION** : le constructeur d'une classe dérivée doit obligatoirement faire appel au constructeur de la classe parente lorsque celui-ci prend des paramètres. C'est le cas dans notre exemple.
+
+### Avantages
+
+Grâce à la relation d'héritage, un objet de la classe `CompteEpargne` peut utiliser les fonctionnalités de la classe `CompteBancaire` sans avoir à les redéfinir. On peut donc débiter ou créditer un compte épargne exactement comme un compte bancaire.
+
+```csharp
+Client paul = new Client(987654, "Ochon", "Paul");
+
+double tauxInteret = 0.05;  // taux d'intérêt : 5%
+CompteEpargne comptePaul = new CompteEpargne(paul, 100, "dollars", tauxInteret);
+
+// appel des méthodes de CompteBancaire sur le compte épargne
+comptePaul.Debiter(1000);
+comptePaul.Crediter(1500);
+Console.WriteLine(comptePaul.Decrire()); // Affiche 600 $
+```
+
+Par contre, le calcul des intérêts (méthode `AjouterInterets`) ne peut se faire que sur un objet de la classe `CompteEpargne`. L'héritage est une relation *unidirectionnelle*.
+
+```csharp
+// OK : comptePaul est un compte épargne
+comptePaul.AjouterInterets();
+Console.WriteLine(comptePaul.Decrire());
+            
+CompteBancaire autreComptePaul = new CompteBancaire(paul, 100, "dollars");
+// Erreur : autreComptePaul est un compte bancaire, pas un compte épargne
+autreComptePaul.AjouterInterets();
+```
+
+Grâce à l'héritage, il est possible de réutiliser les fonctionnalités d'une classe existante en la spécialisant. Il est également possible de spécialiser une classe dérivée.
+
+On voit bien tous les avantages que l'héritage peut apporter : gain de temps de développement, amélioration de la qualité du code, création de hiérarchies de classes reflétant précisément le domaine d'étude, etc.
+
+### Héritage et encapsulation
+
+Nous avons volontairement laissé de côté un point délicat. La méthode `AjouterInterets` de la classe `CompteEpargne`, qui doit ajouter les intérêts au solde, n'est pas encore définie. En voici une première version.
+
+```csharp
+public class CompteEpargne : CompteBancaire
+{
+    // ...
+
+    public void AjouterInterets()
+    {
+        // calcul des intérêts sur le solde
+        double interets = solde * tauxInteret;
+        // ajout des intérêts au solde
+        solde += interets;
+    }
+}
+```
+
+Cependant, le compilateur nous signale l'erreur suivante.
+
+![Erreur de compilation](../images/erreur_heritage_encapsulation.jpg)
+
+Dans cet exemple, la classe dérivée `CompteEpargne` tente d'accéder à l'attribut `solde` qui appartient à la classe de base `CompteBancaire`. Cependant, cet attribut est défini avec le niveau de visibilité `private` ! Cela signifie qu'il n'est utilisable que dans la classe où il est défini, et non dans les classes dérivées.
+
+Pour interdire l'accès à un membre d'une classe (attribut, propriété C# ou méthode) depuis l'extérieur tout en permettant son utilisation par une classe dérivée, il faut associer à ce membre un niveau de visibilité intermédiaire : `protected`.
+
+```csharp
+public class CompteBancaire
+{
+    private string titulaire;
+    protected double solde;   // attribut protégé
+    private string devise;
+
+    // ...
+```
+
+Une autre solution à ce problème consiste à laisser le champ `solde` privé et à définir un accesseur *protégé* pour modifier le solde depuis les méthodes de la classe `CompteEpargne`.
+
+```csharp
+public class CompteBancaire
+{
+    private string titulaire;
+    private double solde;
+    private string devise;
+
+    // ...
+
+    public double Solde
+    {
+        get { return solde; }             // accesseur public pour la lecture
+        protected set { solde = value; }  // mutateur protégé pour la modification
+    }
+
+    // ...
+```
+
+Bien entendu, il faut alors utiliser le mutateur `Solde` et non plus l'attribut `solde` pour accéder au solde depuis la classe dérivée.
+
+```csharp
+public class CompteEpargne : CompteBancaire
+{
+    // ...
+
+    public void AjouterInterets()
+    {
+        // utilisation du mutateur Solde pour accéder au solde du compte
+        double interets = Solde * tauxInteret;
+        Solde += interets;
+    }
+}
+```
+
+Le tableau ci-dessous rassemble les trois niveaux de visibilité utilisables.
+
+Visibilité | Classe| Classes dérivées | Extérieur
+-----------|:-----:|:----------------:|:--------:
+`public` | X | X | X
+`protected` | X | X |
+`private` | X ||
 
 ## Classes et méthodes abstraites
 
@@ -49,7 +178,7 @@ Nous obtenons les précisions suivantes sur notre domaine d'étude :
 ### Création d'une classe abstraite
 
 Notre modélisation objet du domaine doit refléter ces évolutions. Jusqu'à présent, un compte épargne hérite de toutes les caractéristiques d'un compte bancaire, et en ajoute d'autres (taux d'intérêt). Nous voyons apparaître des éléments spécifiques à un compte courant : numéro de CB, découvert maximal. Il serait maladroit d'ajouter ces attributs à la classe `CompteBancaire`, puisqu'ils seraient hérités par la classe `CompteEpargne` alors qu'ils ne la concernent pas.
-Proposition : diagramme de classe illustrant le paragraphe ci-dessus.
+
 La bonne solution est de placer dans la classe `CompteBancaire` les éléments communs à tous les types de comptes. Deux autres classes, `CompteCourant` et `CompteEpargne`, héritent de `CompteBancaire` afin d'intégrer ces éléments communs. Chaque classe dérivée contient ce qui est spécifique à chaque type de compte. Le diagramme ci-dessous reflète cette modélisation.
 
 ![Diagramme UML des classes CompteBancaire, CompteCourant et CompteEpargne](../images/uml_classe_abstraite.jpg)
@@ -72,10 +201,6 @@ En C# (ainsi qu'en Java et en C++), le mot-clé `abstract` permet de préciser q
 ![Diagramme UML de la classe CompteBancaire](../images/uml_italiques.jpg)
 
 **DEFINITION** : une **classe abstraite** définit un concept abstrait, incomplet ou théorique. Elle rassemble des éléments **communs** à plusieurs classes dérivées. **Elle n'est pas destinée à être instanciée**.
-
-On vérifie rapidement qu'une classe abstraite n'est pas instanciable.
-
-![Erreur d'instanciation d'une classe abstraite](../images/erreur_instanciation_abstraite.jpg)
 
 Par opposition aux classes abstraites, les classes instanciables sont parfois appelées classes **concrètes**.
 
@@ -108,16 +233,16 @@ Pour traiter la problématique du débit d'argent, il faudrait pouvoir déclarer
 
 Il existe une technique pour obtenir ce résultat : la définition d'une **méthode abstraite**.
 
-On ajoute à la classe `CompteBancaire` la méthode `Debiter` précédée du mot-clé `abstract`.
+On modifie la classe `CompteBancaire` pour rendre la méthode `Debiter` abstraite, en la faisant précéder du mot-clé `abstract`.
 
 ```csharp
 public abstract class CompteBancaire
 {
-    protected string titulaire;
-    protected double solde;
-    protected string devise;
+    private Client titulaire;
+    private double solde;
+    private string devise;
 
-    public CompteBancaire(string leTitulaire, double soldeInitial, string laDevise)
+    public CompteBancaire(Client leTitulaire, double soldeInitial, string laDevise)
     {
         titulaire = leTitulaire;
         solde = soldeInitial;
@@ -127,6 +252,7 @@ public abstract class CompteBancaire
     public double Solde
     {
         get { return solde; }
+        protected set { solde = value; }
     }
 
     public string Devise
@@ -144,19 +270,19 @@ public abstract class CompteBancaire
         solde += montant;
     }
 
+    // La méthode Debiter est maintenant abstraite
+    public abstract void Debiter(double montant);
+
     public string Decrire()
     {
         return "Le solde du compte de " + titulaire + " est de " + solde + " " + devise;
     }
-
-    // déclaration d'une méthode abstraite
-    public abstract void Debiter(double montant);
 }
 ```
 
 Remarquez l'absence d'accolades ouvrantes et fermantes après le nom `Debiter`, remplacées par un simple `;`. La méthode est *déclarée* mais pas *définie*. Ce sera aux classes qui héritent de `CompteBancaire` de fournir une implémentation respectant la signature de la méthode.
 
-**DEFINITION**
+**DEFINITIONS**
 
 * Le terme **implémenter** signifie : rendre concret, traduire en code.
 * La **signature** d'une méthode est constituée de son nom et de la liste de ses paramètres.
@@ -181,31 +307,51 @@ public class CompteCourant : CompteBancaire
     private double decouvertMaxi;
 
     // Constructeur
-    public CompteCourant(string leTitulaire, double soldeInitial, string laDevise, string numeroCB, double decouvertMaxi)
-    : base(leTitulaire, soldeInitial, laDevise)  // appel au constructeur de CompteBancaire
+    public CompteCourant(Client leTitulaire, double soldeInitial, string laDevise, string numeroCB, double decouvertMaxi)
+        : base(leTitulaire, soldeInitial, laDevise)  // appel au constructeur de CompteBancaire
     {
         this.numeroCB = numeroCB;
         this.decouvertMaxi = decouvertMaxi;
     }
 
-    // redéfinition de la méthode Debiter
+    // Redéfinition de la méthode Debiter
     public override void Debiter(double montant)
     {
         // on n'effectue le débit que si le solde final reste supérieur au découvert
-        if (solde - montant >= decouvertMaxi)
-            solde -= montant;
+        if (Solde - montant >= decouvertMaxi)
+            Solde -= montant;
     }
 }
 ```
 
-En C#, la redéfinition d'une méthode abstraite doit être précédée du mot-clé `override`. On peut maintenant instancier la classe `CompteCourant` et tester ses fonctionnalités.
+En C#, la redéfinition d'une méthode abstraite doit être précédée du mot-clé `override`. 
+
+On peut maintenant compléter la définition de la classe `CompteEpargne` pour définir de quelle manière un compte épargne est débité.
 
 ```csharp
-CompteCourant compte1 = new CompteCourant("Pierre", 250, "dollars", "1234 5678 9123 4567", -500);
+public class CompteEpargne : CompteBancaire
+{
+    // ...
 
-compte1.Debiter(300);
-compte1.Debiter(500);
-Console.WriteLine(compte1.Decrire());
+    // Redéfinition de la méthode Debiter
+    public override void Debiter(double montant)
+    {
+        // Le montant maximal d'un retrait est la moitié du solde actuel
+        if (montant <= Solde / 2)
+            Solde -= montant;
+    }
+}
+```
+
+On peut maintenant instancier nos classes dérivées et tester leurs fonctionnalités.
+
+```csharp
+Client pierre = new Client(123456, "Khiroul", "Pierre");
+
+CompteCourant compteCourant = new CompteCourant(pierre, 250, "dollars", "1234 5678 9123 4567", -500);
+compteCourant.Debiter(300);
+compteCourant.Debiter(500);
+Console.WriteLine(compteCourant.Decrire());
 ```
 
 ![Résultat de l'exécution](../images/redefinition_compte_courant.jpg)
@@ -214,42 +360,13 @@ On constate que le second retrait de 500 dollars n'a pas eu lieu, puisqu'il aura
 
 **REMARQUE** : le programme principal n'est pas informé de l'échec du second retrait, ce qui peut laisser croire que ce retrait a réussi. Nous découvrirons prochainement le mécanisme de remontée d'erreur qu'on utilise dans ces cas de figure.
 
-On peut maintenant compléter la définition de la classe `CompteEpargne`.
-
 ```csharp
-public class CompteEpargne : CompteBancaire
-{
-    private double tauxInteret;
+Client paul = new Client(987654, "Ochon", "Paul");
 
-    public CompteEpargne(string leTitulaire, double soldeInitial, string laDevise, double leTauxInteret)
-    : base(leTitulaire, soldeInitial, laDevise)  // appel au constructeur de CompteBancaire
-    {
-        tauxInteret = leTauxInteret;
-    }
-
-    public void AjouterInterets()
-    {
-        double interets = solde * tauxInteret;
-        solde += interets;
-    }
-
-    // redéfinition de la méthode Debiter
-    public override void Debiter(double montant)
-    {
-        if (montant <= solde / 2)
-            solde -= montant;
-    }
-}
-```
-
-Une fois la classe `CompteEpargne` complétée, on peut écrire un petit programme de test.
-
-```csharp
-CompteEpargne compte2 = new CompteEpargne("Paul", 1000, "euros", 0.04);
-
-compte2.Debiter(300);
-compte2.Debiter(500);
-Console.WriteLine(compte2.Decrire());
+CompteEpargne compteEpargne = new CompteEpargne(paul, 1000, "euros", 0.04);
+compteEpargne.Debiter(300);
+compteEpargne.Debiter(500);
+Console.WriteLine(compteEpargne.Decrire());
 ```
 
 ![Résultat de l'exécution](../images/redefinition_compte_epargne.jpg)

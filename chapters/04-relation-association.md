@@ -35,7 +35,6 @@ public class CompteBancaire
     public double Solde
     {
         get { return solde; }
-        protected set { solde = value; }
     }
 
     public string Devise
@@ -319,6 +318,8 @@ Dans un diagramme de classes UML, l'absence de flèche sur le lien d'association
 ![Diagramme UML d'une association bidirectionnelle](../images/uml_bidirectionnelle.jpg)
 
 **CONSEIL** : en pratique, une association bidirectionnelle est plus complexe à coder : il faut penser à mettre à jour les attributs de chaque classe pour qu'elle reste cohérente. On privilégiera le plus souvent les associations unidirectionnelles en choisissant le sens de navigation le plus utile.
+
+Dans la suite du cours, nous utiliserons une association unidirectionnelle entre `CompteBancaire` et `Client`.
 
 ## Types particuliers d'associations
 
