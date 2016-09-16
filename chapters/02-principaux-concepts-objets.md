@@ -30,6 +30,8 @@ public class CompteBancaire
     // ...
 ```
 
+### Rôle
+
 **DEFINITION** : le **constructeur** est une méthode spécifique dont le rôle est de construire un objet, le plus souvent en initialisant ses attributs.
 
 **ATTENTION** : le nom du constructeur doit être identique au nom de la classe, et sa définition ne comporte pas le mot-clé `void`.
@@ -46,20 +48,21 @@ comptePierre.Debiter(500);
 Console.WriteLine(comptePierre.Decrire());
 ```
 
+### Constructeur par défaut
+
 Lorsqu'une classe ne définit aucun constructeur (comme dans l'exemple du chapitre précédent), un constructeur par défaut sans aucun paramètre est implicitement créé. Il n'a aucun comportement mais son existence permet d'instancier des objets de cette classe.
 
 En revanche, toute définition explicite d'un constructeur dans une classe "désactive" le constructeur par défaut. Dans notre exemple actuel, on ne peut plus instancier un compte bancaire sans lui fournir les trois paramètres que son constructeur attend.
 
-![](erreur_constructeur_defaut.png)
+![](../images/erreur_constructeur_defaut.png)
 
-**REMARQUE** : une classe peut disposer de plusieurs constructeurs initialisant différents attributs. Nous étudierons cette possibilité dans un prochain chapitre.
+**REMARQUE** : une classe peut disposer de plusieurs constructeurs initialisant différents attributs. Nous étudierons cette possibilité dans un [prochain chapitre](06-complements-classes.md).
 
 ## Encapsulation
 
 L'écriture de classes offre d'autres avantages que le simple regroupement de données et de traitements. Parmi ceux-ci figure la possibilité de restreindre l'accès à certains éléments de la classe. C'est ce que l'on appelle **l'encapsulation**.
 
-Exemple d'utilisation
----------------------
+### Exemple d'utilisation
 
 On souhaite qu'un compte bancaire créé ne puisse pas changer de titulaire ni de devise. Cela est possible en définissant les attributs `titulaire` et `devise` comme étant **privés**.
 
