@@ -17,9 +17,10 @@ public class CompteEpargne : CompteBancaire
 {
     private double tauxInteret;
 
-    public CompteEpargne(Client leTitulaire, double soldeInitial, string laDevise, double leTauxInteret) : base(leTitulaire, soldeInitial, laDevise)
-    // appel du constructeur de la classe CompteBancaire
-    // le mot-clé "base" permet d'accéder à la classe parente
+    public CompteEpargne(Client leTitulaire, double soldeInitial, string laDevise, double leTauxInteret) 
+        : base(leTitulaire, soldeInitial, laDevise)
+        // appel du constructeur de la classe CompteBancaire
+        // le mot-clé "base" permet d'accéder à la classe parente
     {
         tauxInteret = leTauxInteret;
     }
@@ -164,6 +165,36 @@ Visibilité | Classe| Classes dérivées | Extérieur
 `public` | X | X | X
 `protected` | X | X |
 `private` | X ||
+
+## Polymorphisme
+
+Afin de gagner en généricité, on peut appliquer le même code à des objets de types différents, lorsque les classes de ces objets sont liées par héritage. C'est le principe du **polymorphisme**.
+
+Prenons l'exemple d'une liste de comptes bancaires dont l'un est un compte épargne.
+
+```csharp
+Client paul = new Client(987654, "Ochon", "Paul");
+
+CompteBancaire compte1 = new CompteBancaire(paul, 300, "euros");
+CompteEpargne compte2 = new CompteEpargne(paul, 200, "dollars", 0.05);
+CompteBancaire compte3 = new CompteBancaire(paul, 5000, "yens");
+
+List<CompteBancaire> listeComptes = new List<CompteBancaire>();
+listeComptes.Add(compte1);
+listeComptes.Add(compte2); // Est-ce bien un compte bancaire ?
+listeComptes.Add(compte3);
+
+foreach (CompteBancaire compte in listeComptes)
+    Console.WriteLine(compte.Decrire());
+```
+
+![Résultat de l'exécution](../images/polymorphisme.jpg)
+
+Un compte épargne "est un" compte bancaire. On peut donc stocker un compte épargne dans une liste de comptes bancaires. On peut même appeler la méthode `Decrire` sur chacun des éléments de la liste de comptes bancaires. C'est un exemple très simple de ce qu'on appelle le **polymorphisme**.
+
+**DEFINITION** : utiliser le **polymorphisme** consiste à écrire un code générique qui pourra s'appliquer à des objets appartenant à des classes différentes.
+
+Le polymorphisme rend le code plus concis, plus élégant et plus sûr. C'est un mécanisme à utiliser dès que l'occasion se présente. Il peut être enrichi grâce aux mécanismes que nous allons découvrir maintenant.
 
 ## Classes et méthodes abstraites
 
@@ -326,7 +357,7 @@ public class CompteCourant : CompteBancaire
 
 En C#, la redéfinition d'une méthode abstraite doit être précédée du mot-clé `override`. 
 
-On peut maintenant compléter la définition de la classe `CompteEpargne` pour définir de quelle manière un compte épargne est débité.
+Suivant le même principe, on complète la définition de la classe `CompteEpargne` pour préciser de quelle manière un compte épargne est débité.
 
 ```csharp
 public class CompteEpargne : CompteBancaire
@@ -373,7 +404,7 @@ Console.WriteLine(compteEpargne.Decrire());
 
 Ici encore, le second retrait n'a pas eu lieu : son montant est supérieur à la moitié du solde (700 euros au moment de l'appel).
 
-### Conclusion
+### Bilan
 
 **DEFINITION** : une **méthode abstraite** (mot-clé `abstract`) déclare un comportement sans le définir. Elle doit être redéfinie (mot-clé `override`) dans toutes les classes dérivées.
 
@@ -381,44 +412,69 @@ Une classe comportant au moins une méthode abstraite est nécessairement une **
 
 Déclarer une méthode abstraite dans une superclasse permet d'imposer à toutes les classes dérivées de fournir une implémentation de cette méthode. Ainsi, on demande à ces classes de founir un certain comportement tout en les laissant choisir comment elles procèdent.
 
-### Application
+## Méthodes virtuelles
 
-Intéressons-nous à la description d'un compte. Elle devrait renvoyer les données communes (solde, devise) et les données spécifiques au type (numéro de CB, découvert maximal ou taux d'intérêt), ce qui n'est pas le cas actuellement.
+### Evolution du contexte
 
-Nous allons rendre la méthode `Decrire` abstraite dans `CompteBancaire`.
+Intéressons-nous à la description d'un compte. Elle devrait renvoyer les données communes (solde, devise) et les données spécifiques au type (numéro de CB, découvert maximal ou taux d'intérêt), ce qui n'est pas le cas actuellement : seuls les attributs de la classe abstraite `CompteBancaire` sont affichés.
+
+Dans ce cas de figure, on voudrait pouvoir utiliser le comportement commun (celui de `CompteBancaire`) et le compléter par un comportement particulier à chaque sous-classe. Pour cela, nous pouvons rendre la méthode `Decrire` virtuelle.
+
+### Mise en oeuvre
+
+Modifiez la défintion de `Decrire` dans `CompteBancaire` pour ajouter le mot `virtual`. Le reste de sa définition ne change pas.
 
 ```csharp
 public abstract class CompteBancaire
 {
     // ...
-    public abstract string Decrire();
+    
+    public virtual string Decrire()
+    { // ... }
 }
 ```
 
-Ensuite, il faut redéfinir cette méthode dans les classes dérivées `CompteCourant` et `CompteEpargne`.
+En faisant cela, on indique au compilateur que cette méthode est **virtuelle**, autrement dit susceptible d'être *redéfinie* dans une classe dérivée. C'est justement ce que nous allons faire dans `CompteCourant` et `CompteEpargne` pour intégrer à la description les données spécifiques à chaque type de compte.
 
 ```csharp
 public class CompteCourant : CompteBancaire
 {
     // ...
+    
+    // Redéfinition de la méthode Decrire
     public override string Decrire()
     {
-        return "Le solde du compte de " + titulaire + " est de " + solde + " " + devise + ". Le n° CB est " + numeroCB + " et le découvert maximum est " + decouvertMaxi;
+        return base.Decrire() + ". Son numéro CB est " + numeroCB + 
+          " et son découvert maxi est de " + decouvertMaxi + " " + Devise + ".";
     }
 }
 
 public class CompteEpargne : CompteBancaire
 {
     // ...
+    
+    // Redéfinition de la méthode Decrire
     public override string Decrire()
     {
-        return "Le solde du compte de " + titulaire + " est de " + solde + " " + devise + ". Le taux d'intérêt est " + tauxInteret + "%";
+        return base.Decrire() + ". Son taux d'intérêt est de " + (tauxInteret * 100) + "%.";
     }
 }
 ```
 
+Le mot-clé `base` permet d'accéder aux membres de la classe de base depuis une méthode d'une classe dérivée. Ici, `base.Decrire()` appelle la méthode `Decrire` de `CompteBancaire`.
+
+Nous obtenons le résultat suivant.
+
 ![Résultat de l'exécution](../images/redefinition_decrire.jpg)
 
-**REMARQUE** : on observe que le code de description des attributs de `CompteBancaire` est dupliqué dans les classes dérivées. Il existe une technique (non étudiée ici) pour éviter cette duplication : la définition d'une **méthode virtuelle**.
+A présent, chaque type de compte dispose d'une description spécifique, et la description des informations communes à tous les comptes (titulaire, solde et devise) se fait sans aucune duplication de code.
 
+### Bilan
 
+**DEFINITION** : une méthode **virtuelle** (`virtual`) fournit un comportement par défaut dans une classe. Elle peut être redéfinie (`override`) dans une classe dérivée.
+
+Grâce aux méthodes virtuelles, on pousse encore plus loin les possibilités du polymorphisme.
+
+** ATTENTION** : ne pas confondre méthode virtuelle et méthode abstraite :
+* Une méthode virtuelle *définit* un comportement, *éventuellement* redéfini.
+* Une méthode abstraite *déclare* un comportement, *obligatoirement* redéfini.
