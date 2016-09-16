@@ -2,9 +2,11 @@
 
 L'objectif de ce chapitre est de découvrir pourquoi et comment mettre des objets en relation les uns avec les autres.
 
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap4-Association).
+
 ## Introduction aux relations entre objets
 
-### Le besoin de relations
+### La nécessité de relations
 
 Comme nous l'avons déjà vu, la programmation orientée objet consiste à concevoir une application sous la forme de "briques" logicielles appelées des objets. Chaque objet joue un rôle précis et peut communiquer avec les autres objets. Les interactions entre les différents objets vont permettre à l'application de réaliser les fonctionnalités attendues.
 
@@ -16,7 +18,7 @@ Sauf dans les cas les plus simples, on ne pourra pas modéliser fidèlement le d
 
 Reprenons notre classe modélisant un compte bancaire, issue d'un précédent chapitre.
 
-![Diagramme UML de la classe CompteBancaire](../images/uml_compte_bancaire.jpg)
+![Diagramme UML de la classe CompteBancaire](../images/uml_compte_bancaire.png)
 
 ```csharp
 public class CompteBancaire
@@ -24,13 +26,6 @@ public class CompteBancaire
     private string titulaire;
     private double solde;
     private string devise;
-
-    public CompteBancaire(string leTitulaire, double soldeInitial, string laDevise)
-    {
-        titulaire = leTitulaire;
-        solde = soldeInitial;
-        devise = laDevise;
-    }
 
     public string Titulaire
     {
@@ -40,6 +35,7 @@ public class CompteBancaire
     public double Solde
     {
         get { return solde; }
+        protected set { solde = value; }
     }
 
     public string Devise
@@ -47,6 +43,13 @@ public class CompteBancaire
         get { return devise; }
     }
 
+    public CompteBancaire(string leTitulaire, double soldeInitial, string laDevise)
+    {
+        titulaire = leTitulaire;
+        solde = soldeInitial;
+        devise = laDevise;
+    }
+    
     public void Crediter(double montant)
     {
         solde += montant;
@@ -64,40 +67,76 @@ public class CompteBancaire
 }
 ```
 
+### Evolution des besoins
+
 On souhaite à présent enrichir notre modélisation orientée objet en incluant des informations détaillées sur le titulaire d'un compte : son nom, son prénom, son numéro de client.
 
 Une première idée serait d'ajouter dans notre classe les attributs correspondants. C'est une mauvaise idée : les données d'un client seraient dupliquées dans chacun de ses comptes. Et le rôle de la classe `CompteBancaire` est de modéliser un compte, pas un client.
 
 La bonne solution est de créer une nouvelle classe représentant un client.
 
+### Modélisation du client
+
+On crée la classe `Client` dont le rôle sera de répresenter les clients titulaires des comptes.
+
+```csharp
+// Modélise un client
+public class Client
+{
+    private int numero;    // Numéro de compte
+    private string nom;    // Nom
+    private string prenom; // Prénom
+
+    public int Numero
+    {
+        get { return numero; }
+    }
+
+    public string Nom
+    {
+        get { return nom; }
+    }
+
+    public string Prenom
+    {
+        get { return prenom; }
+    }
+
+    public Client(int leNumero, string leNom, string lePrenom)
+    {
+        numero = leNumero;
+        nom = leNom;
+        prenom = lePrenom;
+    }
+}
+```
+
 ![Diagramme UML de la classe Client](../images/uml_client.jpg)
 
-On retrouve dans cette classe, sous forme d'attributs, les données caractérisant un client : numéro, nom et prénom. On pourra ensuite instancier des objets de cette classe pour représenter les clients d'une banque.
+On retrouve dans cette classe, sous forme d'attributs, les données caractérisant un client : numéro, nom et prénom. On pourra ensuite instancier des objets de cette classe pour représenter les clients de la banque.
 
 ```csharp
 Client pierre = new Client(123456, "Kiroul", "Pierre");
 Client paul = new Client(987654, "Ochon", "Paul");
 ```
 
-A ce stade, nous avons d'un côté des comptes, de l'autre des clients, mais pas encore de relations entre eux. Plus précisément, il faudrait pouvoir modéliser l'information "ce compte a pour titulaire ce client". Pour cela, on modifie le type de l'attribut titulaire dans `CompteBancaire` : on remplace le type `string` par le type `Client`.
+A ce stade, nous avons d'un côté des comptes, de l'autre des clients, mais pas encore de relations entre eux. Plus précisément, il faudrait pouvoir modéliser l'information "ce compte a pour titulaire ce client". Pour cela, on modifie le type de l'attribut `titulaire` dans `CompteBancaire` : on remplace le type `string` par le type `Client`. Il faut également modifier l'accesseur et le constructeur pour faire le même changement.
 
 ```csharp
 class CompteBancaire
 {
     private Client titulaire;  // type string => type Client
-
-    // ...
+    
+    public Client Titulaire
+    {
+        get { return titulaire; }
+    }
 
     public CompteBancaire(Client leTitulaire, double soldeInitial, string laDevise)
     {
        titulaire = leTitulaire;
        solde = soldeInitial;
        devise = laDevise;
-    }
-
-    public Client Titulaire
-    {
-        get { return titulaire; }
     }
 
     // ...
@@ -145,7 +184,7 @@ public string Decrire()
 }
 ```
 
-Ici on concatène l'attribut `Titulaire`, instance de la classe `Client`, à une chaîne de caractères pour créer la description du compte. Le langage C# ne sait pas comment représenter un client sous forme textuelle et il renvoie le nom complet de la classe `Client` (ici, `Association` correspond à l'espace de noms dont lequel est définie la classe `Client`). Il est donc nécessaire de modifier la méthode `Decrire` afin d'afficher toutes ses propriétés.
+Ici on concatène l'attribut `titulaire`, instance de la classe `Client`, à une chaîne de caractères pour créer la description du compte. Le langage C# ne sait pas comment représenter un client sous forme textuelle et il renvoie le nom complet de la classe `Client` (ici, `Association` correspond à l'espace de noms dont lequel est définie la classe `Client`). Il est donc nécessaire de modifier la méthode `Decrire` afin d'afficher toutes ses propriétés.
 
 ```csharp
 public string Decrire()
@@ -158,7 +197,7 @@ public string Decrire()
 
 ![Résultat de l'exécution](../images/decrire_compte_2.jpg)
 
-**REMARQUE** : il existe une autre solution pour obtenir une représentation textuelle d'un objet. Elle sera étudiée prochainement.
+**REMARQUE** : il existe une meilleure solution pour obtenir une représentation textuelle d'un objet. Elle sera étudiée dans un [prochain chapitre](06-complements-classes.md).
 
 Dans cet exemple, on a mis en relation un objet de la classe `CompteBancaire` avec un objet de la classe `Client`. En terminologie objet, on dit qu'on a créé une **association** entre les deux classes.
 
@@ -176,7 +215,7 @@ On la représente graphiquement en UML par un trait continu entre les deux class
 
 ![Diagramme UML d'une association](../images/uml_association.jpg)
 
-On observe que l'attribut `Titulaire` de `CompteBancaire` n'est plus listé dans cette classe, mais représenté au-dessus du trait d'association, côté classe `Client`. Il s'agit du **rôle** que jouent les instances de `Client` dans l'association : un client est le titulaire d'un compte bancaire.
+On observe que l'attribut `titulaire` de `CompteBancaire` n'est plus listé dans cette classe, mais représenté au-dessus du trait d'association, côté classe `Client`. Il s'agit du **rôle** que jouent les instances de `Client` dans l'association : un client est le titulaire d'un compte bancaire.
 
 La flèche qui pointe vers `Client` indique le sens de **navigation** de l'association.
 
