@@ -2,6 +2,8 @@
 
 L'objectif de ce chapitre est de présenter les concepts essentiels de la programmation orientée objet.
 
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap1-Initiation).
+
 ## Constructeur
 
 Reprenons l'exemple de la classe `CompteBancaire` du chapitre précédent.
@@ -44,10 +46,13 @@ comptePierre.Debiter(500);
 Console.WriteLine(comptePierre.Decrire());
 ```
 
-**REMARQUES**
+Lorsqu'une classe ne définit aucun constructeur (comme dans l'exemple du chapitre précédent), un constructeur par défaut sans aucun paramètre est implicitement créé. Il n'a aucun comportement mais son existence permet d'instancier des objets de cette classe.
 
-* Un constructeur par défaut (vide) est implicitement créé (pas besoin de l'écrire mais c'est quand même préférable).
-* Une classe peut disposer de plusieurs constructeurs initialisant différents attributs.
+En revanche, toute définition explicite d'un constructeur dans une classe "désactive" le constructeur par défaut. Dans notre exemple actuel, on ne peut plus instancier un compte bancaire sans lui fournir les trois paramètres que son constructeur attend.
+
+![](erreur_constructeur_defaut.png)
+
+**REMARQUE** : une classe peut disposer de plusieurs constructeurs initialisant différents attributs. Nous étudierons cette possibilité dans un prochain chapitre.
 
 ## Encapsulation
 
@@ -96,7 +101,7 @@ Les mots-clés `public` et `private` permettent de modifier le **niveau d'encaps
 
 **DEFINITION** : **l'encapsulation** est l'un des principes fondamentaux de la POO. Il consiste à restreindre l'accès à certains éléments d'une classe (le plus souvent ses attributs). L'objectif de l'encapsulation est de ne laisser accessible que le strict nécessaire pour que la classe soit utilisable.
 
-**CONSEIL** : sauf cas particulier, on donne le niveau de visibilité `private` à tous les attributs d'une classe.
+**CONSEIL** : sauf cas particulier, on donne le niveau de visibilité `private` à tous les attributs d'une classe afin d'assurer leur encapsulation par défaut.
 
 ```csharp
 public class CompteBancaire
@@ -225,13 +230,13 @@ public class CompteBancaire
     // ...
 ```
 
-Avec des propriétés automatiques, on peut seulement jouer sur le niveau de visibilité des accesseurs. La version 6 du langage C#, sortie en 2015, permet d'avoir réellement des propriétés automatique en lecture seule ([Plus de détails](http://stackoverflow.com/questions/2480503/is-read-only-auto-implemented-property-possible)).
+Avec des propriétés automatiques, on peut seulement jouer sur le niveau de visibilité des accesseurs. La version 6 du langage C#, sortie en 2015, permet d'avoir réellement des propriétés automatiques en lecture seule ([Plus de détails](http://stackoverflow.com/questions/2480503/is-read-only-auto-implemented-property-possible)).
 
 ```csharp
 public class CompteBancaire
 {
     public string Titulaire { get; private set; }
-    //public string Titulaire { get; } : Incorrect avant C# 6
+    // public string Titulaire { get; } // Incorrect avant C# 6 (.NET framework 4.6)
 
     public double Solde { get; private set; }
 
@@ -292,8 +297,7 @@ Le formalisme graphique UML décrit la relation d'héritage entre deux classes p
 
 ![Diagramme de classes UML](../images/uml_compte_epargne_1.jpg)
 
-Définition
-----------
+### Définition
 
 **DEFINITION** : **l'héritage** est un mécanisme objet qui consiste à définir une classe à partir d'une classe existante. Une classe héritant d'une autre classe possède les caractéristiques de la classe initiale et peut définir ses propres éléments.
 
@@ -309,7 +313,7 @@ Grâce à la relation d'héritage, un objet de la classe `CompteEpargne` peut ut
 double tauxInteret = 0.05;  // taux d'intérêt : 5%
 
 // déclaration et instanciation d'un nouveau compte épargne
-CompteEpargne comptePaul = new CompteEpargne("Paul", 0, "dollars", tauxInteret);
+CompteEpargne comptePaul = new CompteEpargne("Paul", 100, "dollars", tauxInteret);
 
 // appel des méthodes de CompteBancaire sur le compte épargne
 comptePaul.Debiter(1000);
@@ -320,7 +324,7 @@ Console.WriteLine(comptePaul.Decrire());
 Par contre, le calcul des intérêts (méthode `AjouterInterets`) ne peut se faire que sur un objet de la classe `CompteEpargne`. L'héritage est une relation *unidirectionnelle*.
 
 ```csharp
-CompteEpargne comptePaul = new CompteEpargne("Paul", 0, "dollars", 0.05);
+CompteEpargne comptePaul = new CompteEpargne("Paul", 100, "dollars", 0.05);
 CompteBancaire comptePierre = new CompteBancaire("Pierre", 100, "euros");
 
 // OK : comptePaul est un compte épargne
@@ -359,7 +363,7 @@ Cependant, le compilateur nous signale l'erreur suivante.
 
 Dans cet exemple, la classe dérivée `CompteEpargne` tente d'accéder à l'attribut `solde` qui appartient à la classe de base `CompteBancaire`. Cependant, cet attribut est défini avec le niveau de visibilité `private` ! Cela signifie qu'il n'est utilisable que dans la classe où il est défini, et non dans les classes dérivées.
 
-Pour interdire l'accès à un élément (attribut, propriété C# ou méthode) depuis l'extérieur tout en permettant son utilisation par une classe dérivée, il faut associer à cet élément un niveau de visibilité intermédiaire : `protected`.
+Pour interdire l'accès à un membre d'une classe (attribut, propriété C# ou méthode) depuis l'extérieur tout en permettant son utilisation par une classe dérivée, il faut associer à ce membre un niveau de visibilité intermédiaire : `protected`.
 
 ```csharp
 public class CompteBancaire
