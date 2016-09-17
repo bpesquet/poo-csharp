@@ -8,7 +8,61 @@ Les exemples de code associés sont [disponibles en ligne](https://github.com/bp
 
 ### Exemple d'utilisation
 
-Reprenons nos classes `CompteBancaire` et `Client`, et supposons que nous ayons à gérer un nouveau type de compte : le compte épargne. Comme un compte classique, un compte épargne possède un titulaire, un solde et une devise. Sa spécificité est qu'il permet d'appliquer des intérêts à l'argent déposé sur le compte.
+Reprenons la classe `CompteBancaire` utilisée dans un [précédent chapitre](03-principaux-concepts-objets.md).
+
+```
+// Définit un compte bancaire
+public class CompteBancaire
+{
+    private string titulaire; // Titulaire du compte
+    private double solde;     // Solde du compte
+    private string devise;    // Devise du compte
+
+    public string Titulaire
+    {
+        get { return titulaire; }
+    }
+
+    public double Solde
+    {
+        get { return solde; }
+    }
+
+    public string Devise
+    {
+        get { return devise; }
+    }
+
+    // Constructeur
+    public CompteBancaire(string leTitulaire, double soldeInitial, string laDevise)
+    {
+        titulaire = leTitulaire;
+        solde = soldeInitial;
+        devise = laDevise;
+    }
+
+    // Ajoute un montant au compte
+    public void Crediter(double montant)
+    {
+        solde = solde + montant;
+    }
+
+    // Retire un montant au compte
+    public void Debiter(double montant)
+    {
+        solde = solde - montant;
+    }
+
+    // Renvoie la description du compte
+    public string Decrire()
+    {
+        string description = "Le solde du compte de " + titulaire + " est de " + solde + " " + devise;
+        return description;
+    }
+}
+```
+
+Supposons maintenant que nous ayons à gérer un nouveau type de compte : le compte épargne. Comme un compte classique, un compte épargne possède un titulaire, un solde et une devise. Sa spécificité est qu'il permet d'appliquer des intérêts à l'argent déposé sur le compte.
 
 Bien sûr, il serait possible de concevoir une classe `CompteEpargne` totalement distincte de la classe `CompteBancaire`. Cependant, on constate qu'un compte épargne possède toutes les caractéristiques d'un compte bancaire plus des caractéristiques spécifiques. Nous allons donc définir un compte épargne par **héritage** de la définition d’un compte bancaire.
 
@@ -17,7 +71,7 @@ public class CompteEpargne : CompteBancaire
 {
     private double tauxInteret;
 
-    public CompteEpargne(Client leTitulaire, double soldeInitial, string laDevise, double leTauxInteret) 
+    public CompteEpargne(string leTitulaire, double soldeInitial, string laDevise, double leTauxInteret) 
         : base(leTitulaire, soldeInitial, laDevise)
         // appel du constructeur de la classe CompteBancaire
         // le mot-clé "base" permet d'accéder à la classe parente
@@ -58,10 +112,8 @@ La nouvelle classe (ou classe **dérivée**) correspond à une **spécialisation
 Grâce à la relation d'héritage, un objet de la classe `CompteEpargne` peut utiliser les fonctionnalités de la classe `CompteBancaire` sans avoir à les redéfinir. On peut donc débiter ou créditer un compte épargne exactement comme un compte bancaire.
 
 ```csharp
-Client paul = new Client(987654, "Ochon", "Paul");
-
 double tauxInteret = 0.05;  // taux d'intérêt : 5%
-CompteEpargne comptePaul = new CompteEpargne(paul, 100, "dollars", tauxInteret);
+CompteEpargne comptePaul = new CompteEpargne("paul", 100, "dollars", tauxInteret);
 
 // appel des méthodes de CompteBancaire sur le compte épargne
 comptePaul.Debiter(1000);
@@ -76,9 +128,9 @@ Par contre, le calcul des intérêts (méthode `AjouterInterets`) ne peut se fai
 comptePaul.AjouterInterets();
 Console.WriteLine(comptePaul.Decrire());
             
-CompteBancaire autreComptePaul = new CompteBancaire(paul, 100, "dollars");
-// Erreur : autreComptePaul est un compte bancaire, pas un compte épargne
-autreComptePaul.AjouterInterets();
+CompteBancaire comptePierre = new CompteBancaire("pierre", 100, "dollars");
+// Erreur : comptePierre est un compte bancaire, pas un compte épargne
+comptePierre.AjouterInterets();
 ```
 
 Grâce à l'héritage, il est possible de réutiliser les fonctionnalités d'une classe existante en la spécialisant. Il est également possible de spécialiser une classe dérivée.
@@ -138,6 +190,7 @@ public class CompteBancaire
         get { return solde; }             // accesseur public pour la lecture
         protected set { solde = value; }  // mutateur protégé pour la modification
     }
+    // public string Solde { get; protected set; } // Equivalent avec une propriété automatique 
 
     // ...
 ```
@@ -173,11 +226,9 @@ Afin de gagner en généricité, on peut appliquer le même code à des objets d
 Prenons l'exemple d'une liste de comptes bancaires dont l'un est un compte épargne.
 
 ```csharp
-Client paul = new Client(987654, "Ochon", "Paul");
-
-CompteBancaire compte1 = new CompteBancaire(paul, 300, "euros");
-CompteEpargne compte2 = new CompteEpargne(paul, 200, "dollars", 0.05);
-CompteBancaire compte3 = new CompteBancaire(paul, 5000, "yens");
+CompteBancaire compte1 = new CompteBancaire("Pierre", 300, "euros");
+CompteEpargne compte2 = new CompteEpargne("Paul", 200, "dollars", 0.05);
+CompteBancaire compte3 = new CompteBancaire("Jacques", 50, "euros");
 
 List<CompteBancaire> listeComptes = new List<CompteBancaire>();
 listeComptes.Add(compte1);
@@ -190,7 +241,7 @@ foreach (CompteBancaire compte in listeComptes)
 
 ![Résultat de l'exécution](../images/polymorphisme.jpg)
 
-Un compte épargne "est un" compte bancaire. On peut donc stocker un compte épargne dans une liste de comptes bancaires. On peut même appeler la méthode `Decrire` sur chacun des éléments de la liste de comptes bancaires. C'est un exemple très simple de ce qu'on appelle le **polymorphisme**.
+Ce code fonctionne ! Un compte épargne "est un" compte bancaire. On peut donc stocker un compte épargne dans une liste de comptes bancaires. On peut même appeler la méthode `Decrire` sur chacun des éléments de la liste de comptes bancaires. C'est un exemple très simple de ce qu'on appelle le **polymorphisme**.
 
 **DEFINITION** : utiliser le **polymorphisme** consiste à écrire un code générique qui pourra s'appliquer à des objets appartenant à des classes différentes.
 
@@ -239,7 +290,7 @@ Par opposition aux classes abstraites, les classes instanciables sont parfois ap
 
 Il est maintenant nécessaire de compléter nos classes en y ajoutant les attributs reflétant les caractéristiques (données) des éléments du domaine.
 
-Tout compte possède un solde et une devise. Un compte courant se caractérise par un numéro de carte bancaire et un découvert maximal autorisé. Quant à un compte épargne, il est défini par son taux d'intérêt. On peut donc imaginer la modélisation ci-dessous pour les attributs des classes.
+Tout compte possède un titulaire, un solde et une devise. Un compte courant se caractérise par un numéro de carte bancaire et un découvert maximal autorisé. Quant à un compte épargne, il est défini par son taux d'intérêt. On peut donc imaginer la modélisation ci-dessous pour les attributs des classes.
 
 ![Diagramme UML des caractéristiques des comptes](../images/uml_caracteristiques.jpg)
 
@@ -269,11 +320,11 @@ On modifie la classe `CompteBancaire` pour rendre la méthode `Debiter` abstrait
 ```csharp
 public abstract class CompteBancaire
 {
-    private Client titulaire;
+    private string titulaire;
     private double solde;
     private string devise;
 
-    public CompteBancaire(Client leTitulaire, double soldeInitial, string laDevise)
+    public CompteBancaire(string leTitulaire, double soldeInitial, string laDevise)
     {
         titulaire = leTitulaire;
         solde = soldeInitial;
@@ -338,7 +389,7 @@ public class CompteCourant : CompteBancaire
     private double decouvertMaxi;
 
     // Constructeur
-    public CompteCourant(Client leTitulaire, double soldeInitial, string laDevise, string numeroCB, double decouvertMaxi)
+    public CompteCourant(string leTitulaire, double soldeInitial, string laDevise, string numeroCB, double decouvertMaxi)
         : base(leTitulaire, soldeInitial, laDevise)  // appel au constructeur de CompteBancaire
     {
         this.numeroCB = numeroCB;
@@ -377,9 +428,7 @@ public class CompteEpargne : CompteBancaire
 On peut maintenant instancier nos classes dérivées et tester leurs fonctionnalités.
 
 ```csharp
-Client pierre = new Client(123456, "Khiroul", "Pierre");
-
-CompteCourant compteCourant = new CompteCourant(pierre, 250, "dollars", "1234 5678 9123 4567", -500);
+CompteCourant compteCourant = new CompteCourant("Pierre", 250, "dollars", "1234 5678 9123 4567", -500);
 compteCourant.Debiter(300);
 compteCourant.Debiter(500);
 Console.WriteLine(compteCourant.Decrire());
@@ -392,9 +441,7 @@ On constate que le second retrait de 500 dollars n'a pas eu lieu, puisqu'il aura
 **REMARQUE** : le programme principal n'est pas informé de l'échec du second retrait, ce qui peut laisser croire que ce retrait a réussi. Nous découvrirons prochainement le mécanisme de remontée d'erreur qu'on utilise dans ces cas de figure.
 
 ```csharp
-Client paul = new Client(987654, "Ochon", "Paul");
-
-CompteEpargne compteEpargne = new CompteEpargne(paul, 1000, "euros", 0.04);
+CompteEpargne compteEpargne = new CompteEpargne("Paul", 1000, "euros", 0.04);
 compteEpargne.Debiter(300);
 compteEpargne.Debiter(500);
 Console.WriteLine(compteEpargne.Decrire());
