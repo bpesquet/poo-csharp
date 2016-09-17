@@ -2,13 +2,63 @@
 
 L'objectif de ce chapitre est de découvrir comment enrichir la définition de nos classes en utilisant certaines possibilités des langages à objets.
 
-## Utilisation des méthodes de base
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap6-Complements).
 
-### Contexte d'exemple
+## Contexte d'exemple
 
-Nous allons découvrir que toute classe C# dispose d'un certain nombre de méthodes de base. Pour cela, nous allons utiliser la classe ci-dessous, issue d'un précédent chapitre.
+Nous allons utiliser la classe `CompteBancaire` ci-dessous, issue d'un [précédent chapitre](02-principaux-concepts-objets-.md).
 
-![Diagramme UML de la classe Comptebancaire](../images/uml_compte_bancaire.jpg)
+```csharp
+// Définit un compte bancaire
+public class CompteBancaire
+{
+    private string titulaire; // Titulaire du compte
+    private double solde;     // Solde du compte
+    private string devise;    // Devise du compte
+
+    public string Titulaire
+    {
+        get { return titulaire; }
+    }
+
+    public double Solde
+    {
+        get { return solde; }
+    }
+
+    public string Devise
+    {
+        get { return devise; }
+    }
+
+    // Constructeur
+    public CompteBancaire(string leTitulaire, double soldeInitial, string laDevise)
+    {
+        titulaire = leTitulaire;
+        solde = soldeInitial;
+        devise = laDevise;
+    }
+
+    // Ajoute un montant au compte
+    public void Crediter(double montant)
+    {
+        solde = solde + montant;
+    }
+
+    // Retire un montant au compte
+    public void Debiter(double montant)
+    {
+        solde = solde - montant;
+    }
+
+    // Renvoie la description du compte
+    public string Decrire()
+    {
+        string description = "Le solde du compte de " + titulaire + " est de " + solde + " " + devise;
+        return description;
+    }
+}
+```
 
 Le programme de test associé est le suivant.
 
@@ -19,7 +69,29 @@ Console.WriteLine(compte.Decrire());
 
 ![Résultat de l'exécution](../images/decrire_compte_3.jpg)
 
-## Découverte de la classe Object
+
+## Autoréférence : le mot-clé `this`
+
+**DEFINITION** : à l'intérieur d'une méthode, le mot-clé `this` permet d'accéder à l'instance (l'objet) sur lequel la méthode est appelée.
+
+L'une des utilisations fréquentes de `this` consiste à lever les **ambiguïtés de nommage** entre attributs et paramètres. Par exemple, on pourrait réécrire le constructeur de `CompteBancaire` en changeant les noms de ses paramètres de la manière suivante.
+
+```csharp
+public CompteBancaire(string titulaire, double soldeInitial, string devise)
+{
+    this.titulaire = titulaire;
+    solde = soldeInitial;
+    this.devise = devise;
+}
+```
+
+Ici, l'expression `this.titulaire` désigne sans ambiguïté l'attribut de la classe, alors que l'expression `titulaire` désigne le paramètre du constructeur. Par contre, il n'y a pas d'ambiguïté entre l'attribut `solde`et le paramètre `soldeInitial` qui porte un nom différent.
+
+## Utilisation des méthodes de base
+
+Nous allons voir que toute classe C# dispose d'un certain nombre de méthodes de base que nous pouvons exploiter.
+
+### Découverte de la classe Object
 
 Utilisons une fonctionnalité de Visual Studio pour découvrir si des méthodes sont redéfinissables dans `CompteBancaire`. En tapant le mot-clé `override` dans une classe, l'IDE nous propose la liste des méthodes de cette classe qu'il est possible de redéfinir. Etant donné que `CompteBancaire` n'hérite a priori d'aucune classe, on s'attend à ce que cette liste soit vide.
 
@@ -31,13 +103,13 @@ La [documentation Microsoft](http://msdn.microsoft.com/fr-fr/library/system.obje
 
 La classe `Object` dispose de plusieurs méthodes. Toute classe C# hérite directement ou indirectement de cette classe et peut utiliser ou redéfinir ses méthodes.
 
-## Redéfinition de ToString
+### Redéfinition de ToString
 
 Parmi les méthodes présentes dans la classe `Object`, la plus souvent redéfinie dans les classes dérivées est `ToString`.
 
 **DEFINITION** : la méthode `ToString` permet de décrire un objet sous la forme d'une chaîne de caractères.
 
-**REMARQUE** : c'est cette méthode qui est utilisée lorsqu'un objet est affiché dans un contrôle graphique Winforms (liste déroulante, etc).
+**REMARQUE** : 
 
 Examinons tout d'abord le comportement par défaut (sans redéfinition) de cette méthode.
 
@@ -48,17 +120,17 @@ Console.WriteLine(compte.ToString());
 
 ![Résultat de l'exécution](../images/tostring_non_redefini.jpg)
 
-Par défaut, la méthode `ToString` affiche le nom complet de la classe. Ici, `Exemple_2` désigne **l'espace de noms** (*namespace*) dans lequel la classe `CompteBancaire` est définie.
+Par défaut, la méthode `ToString` affiche le nom complet de la classe. Ici, `Chap6_Complements` désigne **l'espace de noms** (*namespace*) dans lequel la classe `CompteBancaire` est définie.
 
 ```csharp
-namespace Exemple_2
+namespace Chap6_Complements
 {
     public class CompteBancaire
     {
         // ...
 ```
 
-A présent, nous allons redéfinir la méthode `ToString` en lui donnant le même comportement que la méthode `Decrire`.
+A présent, nous allons redéfinir la méthode `ToString` pour qu'elle renvoie des informations plus utiles sur le compte.
 
 ```csharp
 public class CompteBancaire
@@ -74,12 +146,18 @@ public class CompteBancaire
 
 ![Résultat de l'exécution](../images/tostring_redefini.jpg)
 
-Etant donné que `Decrire` et `ToString` ont exactement le même comportement, il est judicieux de redéfinir `ToString` plutôt que d'ajouter aux classes une méthode `Decrire`. On peut également simplifier le programme principal.
+La méthode `ToString`est utilisée implicitement lorsqu'un objet est affiché dans la console ou dans un contrôle graphique Winforms (liste déroulante, etc). On peut donc simplifier le programme principal en passant simplement l'objet à afficher à `Console.WriteLine`.
 
 ```csharp
 CompteBancaire compte = new CompteBancaire("Pierre", 100, "dollars");
-Console.WriteLine(compte);  // ToString est appelé implicitement
+Console.WriteLine(compte);
 ```
+
+Le résultat est identique au précédent.
+
+![Résultat de l'exécution](../images/tostring_redefini.jpg)
+
+**REMARQUE** : la méthode `Decrire`, qui fait doublon avec `ToString`, peut maintenant être supprimée.
 
 ## Surcharge de méthodes
 
@@ -88,36 +166,23 @@ Console.WriteLine(compte);  // ToString est appelé implicitement
 La classe `CompteBancaire` possède un constructeur qui initialise les attributs du compte créé.
 
 ```csharp
-public class CompteBancaire
+public CompteBancaire(string titulaire, double soldeInitial, string devise)
 {
-    private string titulaire;
-    private double solde;
-    private string devise;
-
-    public CompteBancaire(string leTitulaire, double soldeInitial, string laDevise)
-    {
-        titulaire = leTitulaire;
-        solde = soldeInitial;
-        devise = laDevise;
-    }
-
-    // ...
+    this.titulaire = titulaire;
+    solde = soldeInitial;
+    this.devise = devise;
 }
 ```
 
-Ce constructeur nous oblige à définir systématiquement le titulaire, le solde et la devise de tout nouveau compte. Or, les nouveaux comptes bancaires disposent le plus souvent d'un solde égal à zéro et utilisent l'euro comme devise. Pour refléter cet aspect du domaine et faciliter l'utilisation de notre classe, on va y ajouter un autre constructeur. Il prendra uniquement le titulaire en paramètre, et initialisera solde et devise avec leurs valeurs par défaut.
+Ce constructeur nous oblige à définir systématiquement le titulaire, le solde et la devise de tout nouveau compte. Or, les nouveaux comptes bancaires disposent le plus souvent d'un solde égal à zéro et utilisent l'euro comme devise. Pour refléter cet aspect du domaine et faciliter l'utilisation de notre classe, on va ajouter un autre constructeur. Il prendra uniquement le titulaire en paramètre, et initialisera solde et devise avec leurs valeurs par défaut.
 
 ```csharp
-// ...
-
-public CompteBancaire(string leTitulaire)
+public CompteBancaire(string titulaire)
 {
-    titulaire = leTitulaire;
+    this.titulaire = titulaire;
     solde = 0;
     devise = "euros";
 }
-
-// ...
 ```
 
 On peut à présent instancier un compte bancaire en utilisant ce constructeur. On remarque que Visual Studio nous propose deux choix d'autocomplétion, visualisables à l'aide de petites flèches noires.
@@ -142,46 +207,40 @@ On constate que tous les attributs du compte ont été correctement initialisés
 Revenons à notre nouveau constructeur. Il est possible d'améliorer sa définition de la manière suivante.
 
 ```csharp
-// ...
-
 public CompteBancaire(string titulaire) : this(titulaire, 0, "euros")
 {
     // Rien à faire !
 }
-
-// ...
 ```
 
 Cette variante n'initialise pas directement les attributs, mais fait appel à l'autre constructeur en lui passant en paramètres des valeurs par défaut pour les attributs que lui-même n'a pas reçus en paramètres.
 
 **CONSEIL** : le chaînage des constructeurs les uns aux autres est une bonne pratique pour éviter la duplication du code d'initialisation des attributs.
 
-Imaginons qu'on souhaite pouvoir instancier un compte bancaire en définissant son titulaire et son solde (la devise par défaut étant toujours l'euro). On va ajouter à notre classe un troisième constructeur en les chaïnant les uns aux autres.
+Imaginons qu'on souhaite pouvoir instancier un compte bancaire en définissant son titulaire et son solde (la devise par défaut étant toujours l'euro). On va ajouter à notre classe un troisième constructeur en les chaïnant les uns aux autres. Voici les trois constructeurs de `CompteBancaire`.
 
 ```csharp
-// ...
-
-public CompteBancaire(string leTitulaire) : this(leTitulaire, 0)
+public CompteBancaire(string titulaire) : this(titulaire, 0)
 {}
 
-public CompteBancaire(string leTitulaire, double soldeInitial)
-    : this(leTitulaire, soldeInitial, "euros")
+public CompteBancaire(string titulaire, double soldeInitial)
+    : this(titulaire, soldeInitial, "euros")
 {}
 
-public CompteBancaire(string leTitulaire, double soldeInitial, string laDevise)
+public CompteBancaire(string titulaire, double soldeInitial, string devise)
 {
-    titulaire = leTitulaire;
+    this.titulaire = titulaire;
     solde = soldeInitial;
-    devise = laDevise;
+    this.devise = devise;
 }
-
-// ...
 ```
+
+En diversifiant la manière dont un objet peut être instancié, la présence de plusieurs constructeurs facilite l'utilisation d'une classe, 
 
 ### Surcharge d'une méthode
 
 Le mécanisme qui consiste à définir plusieurs constructeurs avec des
-signatures différentes s'appelle la **surcharge**.
+*signatures* différentes s'appelle la **surcharge**.
 
 **DEFINITION** : la **signature** d'une méthode comprend son nom et la liste de ses paramètres (nombre, types et ordre).
 
@@ -197,7 +256,7 @@ public void Crediter(double montant)
 
 public void Crediter(double montant, string devise)
 {
-    if (devise == Devise)  // ou devise == this.devise
+    if (devise == Devise)
         Crediter(montant);
     else
     {
@@ -260,7 +319,7 @@ Imaginons qu'on souhaite identifier les comptes bancaires par un numéro unique.
 
 ![Diagramme UML de la classe CompteBancaire](../images/uml_numero_compte.jpg)
 
-Une possibilité serait de passer le numéro de compte en paramètre au constructeur. Cependant, elle serait fastidieuse à utiliser (l'utilisateur de la classe doit gérer lui-même l'unicité et l'incrémentation des numéros) et source d'erreur (aucun contrôle et risque de doublons dans les numéros).
+Une possibilité serait de passer le numéro de compte en paramètre au constructeur. Cependant, elle serait fastidieuse à utiliser (l'utilisateur de la classe doit gérer lui-même l'unicité et l'incrémentation des numéros) et source d'erreurs (aucun contrôle et risque de doublons dans les numéros).
 
 Une meilleure solution consiste à *internaliser* la problématique de définition du numéro à l'intérieur de la classe `CompteBancaire`. Il faudrait stocker dans la classe l'information sur le numéro de prochain compte. Lors de la création du compte suivant (c'est-à-dire lors du prochain appel au constructeur de la classe `CompteBancaire`), le numéro du prochain compte serait attribué au compte en cours de création, puis incrémenté.
 
@@ -316,14 +375,14 @@ La solution serait de lier l'attribut `numeroProchainCompte` à la classe `Compt
 
 On parle **d'attributs de classe**, par opposition aux attributs appelés **attributs d'instance** quand on veut distinguer les deux types d'attributs.
 
-En C# (ainsi qu'en Java et en C++), la création d'un attribut de classe se fait en précisant sa définition grâce au mot-clé `static`, que vous avez déjà rencontré sans véritablement connaître sa signification.
+En C# (ainsi qu'en Java et en C++), la création d'un attribut de classe se fait en précisant sa définition grâce au mot-clé `static`, que vous avez déjà rencontré par ailleurs.
 
 ```csharp
 public class CompteBancaire
 {
     // ...
     private int numero;
-    private static int numeroProchainCompte = 1;  // attribut de classe (statique)
+    private static int numeroProchainCompte = 1;  // Numéro du prochain compte créé
 
     // ...
 ```
@@ -336,7 +395,7 @@ Ce résultat illustre le fait que l'attribut `numeroProchainCompte` est maintena
 
 ### Définition d'une méthode de classe
 
-Ce qui vient d'être vu pour les attributs s'applique également aux méthodes. En utilisant le mot-clé `static`, on définit une **méthode de classe**, par opposition aux méthodes "classiques" appelées **méthodes** d'instance pour les distinguer.
+Ce qui vient d'être vu pour les attributs s'applique également aux méthodes. En utilisant le mot-clé `static`, on définit une **méthode de classe**, par opposition aux méthodes habituelles appelées **méthodes** d'instance pour les distinguer.
 
 Imaginons qu'on souhaite pouvoir récupérer le numéro du prochain compte. Il faut ajouter une méthode à la classe `CompteBancaire`.
 
@@ -376,7 +435,7 @@ Une méthode de classe s'utilise de manière différente d'une méthode d'instan
 
 Une méthode de classe sert à définir un comportement indépendant de toute instance. Vous en avez déjà rencontrées certaines en utilisant les classes du framework .NET, par exemple `Console.WriteLine` ou `Convert.ToDouble`.
 
-**REMARQUE** : ce que nous appelions jusqu'à maintenant un sous-programme est en réalité une **méthode de classe** de la classe `Program`.
+**REMARQUE** : la méthode `Main`, point d'entrée dans une application console en C#, est en réalité une **méthode de classe** de la classe `Program`.
 
 Il existe des contraintes, somme toute logiques, concernant les interactions entre membres de classe et membres d'instance.
 
