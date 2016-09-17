@@ -2,6 +2,8 @@
 
 L'objectif de ce chapitre est de se familiariser avec le mécanisme de gestion des exceptions.
 
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap7-Exceptions).
+
 ## Introduction : qu'est-ce qu'une exception ?
 
 Commençons ce chapitre par une définition.
@@ -66,7 +68,7 @@ Modifions notre programme principal afin de demander à Gaston de trier trois le
 
 ```csharp
 // ...
-gaston.trierCourrierEnRetard(3);
+gaston.TrierCourrierEnRetard(3);
 ```
 
 Nous obtenons cette fois-ci un résultat bien différent.
@@ -350,7 +352,7 @@ private static void GererAppel(GastonLagaffe gaston, string appelant)
     {
         gaston.RepondreAuTelephone(appelant);
     }
-    catch (Exception e)  // on intercepte uniquement Exception
+    catch (Exception e)  // intercepte toute exception
     {
         Console.WriteLine("Encore une bonne excuse, j'imagine ?");
         Console.WriteLine(e.Message);
