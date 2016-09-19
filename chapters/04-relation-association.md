@@ -18,8 +18,6 @@ Sauf dans les cas les plus simples, on ne pourra pas modéliser fidèlement le d
 
 Reprenons notre classe modélisant un compte bancaire, issue d'un précédent chapitre.
 
-![Diagramme UML de la classe CompteBancaire](../images/uml_compte_bancaire.png)
-
 ```csharp
 public class CompteBancaire
 {
@@ -68,7 +66,7 @@ public class CompteBancaire
 
 ### Evolution des besoins
 
-On souhaite à présent enrichir notre modélisation orientée objet en incluant des informations détaillées sur le titulaire d'un compte : son nom, son prénom, son numéro de client.
+On souhaite à présent enrichir notre modélisation orientée objet en incluant des informations détaillées sur le titulaire d'un compte : son nom, son prénom et son numéro de client.
 
 Une première idée serait d'ajouter dans notre classe les attributs correspondants. C'est une mauvaise idée : les données d'un client seraient dupliquées dans chacun de ses comptes. Et le rôle de la classe `CompteBancaire` est de modéliser un compte, pas un client.
 
@@ -318,8 +316,6 @@ Dans un diagramme de classes UML, l'absence de flèche sur le lien d'association
 ![Diagramme UML d'une association bidirectionnelle](../images/uml_bidirectionnelle.jpg)
 
 **CONSEIL** : en pratique, une association bidirectionnelle est plus complexe à coder : il faut penser à mettre à jour les attributs de chaque classe pour qu'elle reste cohérente. On privilégiera le plus souvent les associations unidirectionnelles en choisissant le sens de navigation le plus utile.
-
-Dans la suite du cours, nous utiliserons une association unidirectionnelle entre `CompteBancaire` et `Client`.
 
 ## Types particuliers d'associations
 

@@ -8,7 +8,7 @@ Les exemples de code associés sont [disponibles en ligne](https://github.com/bp
 
 ### Exemple d'utilisation
 
-Reprenons la classe `CompteBancaire` utilisée dans un [précédent chapitre](03-principaux-concepts-objets.md).
+Reprenons la classe `CompteBancaire` utilisée dans un précédent chapitre.
 
 ```
 // Définit un compte bancaire
@@ -105,7 +105,7 @@ Le formalisme graphique UML décrit la relation d'héritage entre deux classes p
 
 La nouvelle classe (ou classe **dérivée**) correspond à une **spécialisation** de la classe de base (appelée classe **parente** ou **superclasse**). On dit que l'héritage crée une relation de type **est un** entre les classes. Dans notre exemple, un compte épargne *est un* type particulier de compte bancaire.
 
-**ATTENTION** : le constructeur d'une classe dérivée doit obligatoirement faire appel au constructeur de la classe parente lorsque celui-ci prend des paramètres. C'est le cas dans notre exemple.
+**ATTENTION** : le constructeur d'une classe dérivée doit obligatoirement faire explicitement appel au constructeur de la classe parente lorsque celui-ci prend des paramètres. C'est le cas dans notre exemple.
 
 ### Avantages
 

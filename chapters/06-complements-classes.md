@@ -6,7 +6,7 @@ Les exemples de code associés sont [disponibles en ligne](https://github.com/bp
 
 ## Contexte d'exemple
 
-Nous allons utiliser la classe `CompteBancaire` ci-dessous, issue d'un [précédent chapitre](02-principaux-concepts-objets-.md).
+Nous allons utiliser la classe `CompteBancaire` ci-dessous, issue d'un précédent chapitre.
 
 ```csharp
 // Définit un compte bancaire
@@ -146,7 +146,7 @@ public class CompteBancaire
 
 ![Résultat de l'exécution](../images/tostring_redefini.jpg)
 
-La méthode `ToString`est utilisée implicitement lorsqu'un objet est affiché dans la console ou dans un contrôle graphique Winforms (liste déroulante, etc). On peut donc simplifier le programme principal en passant simplement l'objet à afficher à `Console.WriteLine`.
+La méthode `ToString`est utilisée implicitement lorsqu'un objet est affiché dans la console ou dans un contrôle graphique WinForms (liste déroulante, etc). On peut donc simplifier le programme principal en passant simplement l'objet à afficher à `Console.WriteLine`.
 
 ```csharp
 CompteBancaire compte = new CompteBancaire("Pierre", 100, "dollars");
