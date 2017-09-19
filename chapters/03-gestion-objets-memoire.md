@@ -140,7 +140,7 @@ Pour dupliquer l'objet lui-même et non sa référence, il faut utiliser d'autre
 * les types **valeurs**, où la valeur est directement stockée dans la variable.
 * les types **références**, où la variable stocke l'emplacement mémoire de la valeur.
 
-Les types prédéfini (`int`, `double`, etc) sont des types valeurs. Les classes et les tableaux sont des types référence.
+Les types prédéfinis (`int`, `double`, etc) sont des types valeurs. Les classes et les tableaux sont des types référence.
 
 Pourquoi avoir introduit la notion de référence dans le langage ? Essentiellement pour des raisons de performances. Contrairement aux types valeur, un objet (ou une liste d'objets) peut occuper une taille non négligeable en mémoire. De trop nombreuses copies d'objets auraient donc pu ralentir l'exécution d'un programme. Grâce aux références, une affectation entre objets est quasi-instantanée : la seule information copiée est une adresse mémoire, et non l'objet lui-même.
 
