@@ -1,7 +1,7 @@
 Programmation orientée objet en C#
 =====
 
-Ce livre est un support de cours à l'[Ecole Nationale Supérieure de Cognitique](http://www.ensc.fr).
+Ce livre est un support de cours à l'[Ecole Nationale Supérieure de Cognitique](https://ensc.bordeaux-inp.fr).
 
 ![](images/ensc-logo.png)
 
@@ -16,7 +16,7 @@ Ce livre est une introduction à la **programmation orientée objet** (POO). Il 
 * Redéfinition et surcharge de méthodes, membres statiques.
 * Gestion des exceptions.
 
-Les exemples de code sont écrits en C#, mais sont facilement transposables à d'autres langages orientés objets comme Java.
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp/tree/master/examples). Ils sont écrits en C# mais facilement transposables à d'autres langages orientés objet comme Java.
 
 ## Pré-requis
 
