@@ -2,7 +2,7 @@
 
 L'objectif de ce chapitre est de découvrir comment enrichir la définition de nos classes en utilisant certaines possibilités des langages à objets.
 
-Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap6-Complements).
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp/tree/master/examples).
 
 ## Contexte d'exemple
 

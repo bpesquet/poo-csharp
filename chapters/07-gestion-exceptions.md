@@ -2,7 +2,7 @@
 
 L'objectif de ce chapitre est de se familiariser avec le mécanisme de gestion des exceptions.
 
-Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap7-Exceptions).
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp/tree/master/examples).
 
 ## Introduction : qu'est-ce qu'une exception ?
 

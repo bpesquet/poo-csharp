@@ -2,7 +2,7 @@
 
 L'objectif de ce chapitre est de découvrir ce qu'est la programmation orientée objet. 
 
-Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap1-Initiation).
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp/tree/master/examples).
 
 ## Introduction
 

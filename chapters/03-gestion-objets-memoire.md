@@ -2,7 +2,7 @@
 
 L’objectif de ce chapitre est de découvrir les spécificités des variables de type objet, ainsi que la notion de **référence**.
 
-Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap3-Memoire).
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp/tree/master/examples).
 
 ## Préambule
 

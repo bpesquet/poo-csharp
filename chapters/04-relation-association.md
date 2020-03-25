@@ -2,7 +2,7 @@
 
 L'objectif de ce chapitre est de découvrir pourquoi et comment mettre des objets en relation les uns avec les autres.
 
-Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp-exemples/tree/master/Chap4-Association).
+Les exemples de code associés sont [disponibles en ligne](https://github.com/bpesquet/poo-csharp/tree/master/examples).
 
 ## Introduction aux relations entre objets
 
