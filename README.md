@@ -3,7 +3,7 @@ Programmation orientée objet en C#
 
 Ce livre est un support de cours à l'[Ecole Nationale Supérieure de Cognitique](https://ensc.bordeaux-inp.fr).
 
-![](images/ensc-logo.png)
+![ENSC logo](images/ensc-logo.jpg)
 
 ## Résumé
 
